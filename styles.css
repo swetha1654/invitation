@@ -237,7 +237,7 @@ body.locked { overflow: hidden; height: 100vh; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.25);
+  transform: scale(1.12);
 }
 
 #gate-overlay.opening .gate-seal {
