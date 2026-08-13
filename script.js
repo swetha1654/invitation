@@ -4,14 +4,27 @@
 
 "use strict";
 
+/* Base URL for shared assets (card images) — derived from this script's own
+   URL so variant pages in subfolders (all/, mr/, ...) resolve them correctly */
+const ASSET_BASE = (() => {
+  const s = document.currentScript;
+  return s && s.src ? s.src.slice(0, s.src.lastIndexOf("/") + 1) : "";
+})();
+
 /* ---------- Event data (edit here if plans change) ---------- */
-const EVENTS = [
+const ALL_EVENTS = [
   { id: "haldi",      icon: "🌻", name: "Haldi",              when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM", where: "Farmhouse Collective" },
   { id: "varapooje",  icon: "🪔", name: "Varapooje",          when: "Saturday, 5 Dec 2026 · 11 AM", where: "Sindhoor Convention Hall, JP Nagar" },
   { id: "sangeeth",   icon: "🎶", name: "Sangeeth",           when: "Saturday, 5 Dec 2026 · 6 PM",  where: "Sindhoor Convention Hall, JP Nagar" },
   { id: "muhurtham",  icon: "🕉️", name: "Muhurtham",          when: "Sunday, 6 Dec 2026 · 6 AM",    where: "Sindhoor Convention Hall, JP Nagar" },
   { id: "reception",  icon: "✨", name: "Reception",          when: "Sunday, 6 Dec 2026 · 6 PM",    where: "Sindhoor Convention Hall, JP Nagar" },
 ];
+
+/* A variant page can set window.INVITATION_EVENTS = ["muhurtham", "reception"]
+   before loading this script to show only those events */
+const EVENTS = Array.isArray(window.INVITATION_EVENTS)
+  ? ALL_EVENTS.filter((ev) => window.INVITATION_EVENTS.includes(ev.id))
+  : ALL_EVENTS;
 
 /* Countdown target: midnight as 6 Dec 2026 begins, IST (+05:30) */
 const MUHURTHAM_DATE = new Date("2026-12-06T00:00:00+05:30");
@@ -159,7 +172,7 @@ const CARD_IMAGES = {
 /* Card art for an event: the real image if we have one, else the SVG scene */
 function cardArtHTML(ev) {
   if (CARD_IMAGES[ev.id]) {
-    return `<img src="${CARD_IMAGES[ev.id]}" alt="${ev.name} invitation card" draggable="false" />`;
+    return `<img src="${ASSET_BASE}${CARD_IMAGES[ev.id]}" alt="${ev.name} invitation card" draggable="false" />`;
   }
   return ART[ev.id] || "";
 }
