@@ -65,7 +65,7 @@
             <path d="M85 10 q7 -8 15 0 q-7 8 -15 0 Z M115 10 q-7 -8 -15 0 q7 8 15 0 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
           </svg>
         </div>
-        <p class="date-big">Saturday, 6<sup>th</sup> December 2026</p>
+        <p class="date-big">5<sup>th</sup> &amp; 6<sup>th</sup> December 2026</p>
         <p class="venue-line">Sindhoor Convention Hall, JP Nagar, Bengaluru</p>
       </div>
       <a class="scroll-cue reveal" href="#events" aria-label="Scroll to events">
@@ -80,37 +80,10 @@
       <div class="timeline" id="timeline"><!-- event cards injected by JS --></div>
     </section>
 
-    <!-- Squad -->
-    <section id="squad" class="section section-alt">
-      <h2 class="section-title reveal">Whose squad are you on?</h2>
-      <p class="section-sub reveal">Pick a side — your RSVP goes to them</p>
-      <div class="squad-grid reveal">
-        <button class="squad-card" id="squad-bride" type="button">
-          <span class="squad-emoji" aria-hidden="true">🌸</span>
-          <span class="squad-label">Bride's Squad</span>
-          <span class="squad-name">Team Swetha</span>
-          <span class="squad-check" aria-hidden="true"></span>
-        </button>
-        <button class="squad-card" id="squad-groom" type="button">
-          <span class="squad-emoji" aria-hidden="true">🌼</span>
-          <span class="squad-label">Groom's Squad</span>
-          <span class="squad-name">Team Akshith</span>
-          <span class="squad-check" aria-hidden="true"></span>
-        </button>
-      </div>
-    </section>
-
-    <!-- RSVP -->
-    <section id="rsvp" class="section">
-      <h2 class="section-title reveal">Will you join us?</h2>
-      <p class="section-sub reveal">Let us know which events you'll attend</p>
-      <div class="rsvp-list reveal" id="rsvp-list"><!-- RSVP rows injected by JS --></div>
-    </section>
-
     <!-- Countdown -->
     <section id="countdown" class="section section-alt countdown-section">
       <h2 class="section-title reveal">Counting down to the Muhurtham</h2>
-      <p class="section-sub reveal">6<sup>th</sup> December 2026 · 6:00 AM IST</p>
+      <p class="section-sub reveal">6<sup>th</sup> December 2026</p>
       <div class="countdown reveal" id="countdown-timer">
         <div class="cd-cell"><span class="cd-num" id="cd-days">--</span><span class="cd-label">Days</span></div>
         <div class="cd-sep">:</div>
@@ -122,28 +95,39 @@
       </div>
     </section>
 
-    <!-- Guests + WhatsApp -->
-    <section id="guests" class="section guests-section">
-      <h2 class="section-title reveal">How many of you are coming?</h2>
-      <p class="section-sub reveal">Tell us your party size and send your RSVP</p>
-      <div class="guests-box reveal">
-        <label class="guest-label" for="guest-count">Number of guests (including you)</label>
-        <input type="number" id="guest-count" min="1" max="20" placeholder="e.g. 4" inputmode="numeric" />
-        <button id="send-rsvp" class="whatsapp-btn" type="button">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/>
-          </svg>
-          Send RSVP on WhatsApp
-        </button>
-        <p class="guest-note" id="rsvp-warning"></p>
-      </div>
-    </section>
-
     <footer class="footer">
       <p class="footer-names">Swetha &amp; Akshith</p>
       <p class="footer-blessing">வாழ்க வளமுடன் · We can't wait to celebrate with you</p>
     </footer>
   </main>
+
+  <!-- ============ EVENT CARD LIGHTBOX ============ -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Event invitation card" aria-hidden="true">
+    <div class="lb-backdrop" id="lb-backdrop"></div>
+    <div class="lb-card" id="lb-card">
+      <button class="lb-close" id="lb-close" type="button" aria-label="Close card">×</button>
+      <div class="lb-content" id="lb-content">
+        <div class="lb-art" id="lb-art"></div>
+        <div class="lb-text">
+          <p class="lb-msg" id="lb-msg"></p>
+          <p class="lb-when" id="lb-when"></p>
+          <p class="lb-where" id="lb-where"></p>
+        </div>
+        <canvas id="lb-canvas" class="scratch-canvas" role="button" tabindex="0" aria-label="Scratch the card to reveal"></canvas>
+        <div id="lb-drum" class="lb-drum" role="button" tabindex="0" aria-label="Tap the drum to reveal the invitation" hidden>
+          <div class="lb-drum-art" id="lb-drum-art"></div>
+          <p class="lb-drum-count" id="lb-drum-count"></p>
+        </div>
+        <div id="lb-curtain" class="lb-curtain" role="button" tabindex="0" aria-label="Tap to part the curtains and reveal the invitation" hidden>
+          <div class="curtain-half curtain-left"></div>
+          <div class="curtain-half curtain-right"></div>
+          <div class="curtain-valance"></div>
+          <p class="curtain-cue">✦ Tap to open ✦</p>
+        </div>
+      </div>
+      <p class="lb-hint" id="lb-hint"></p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
