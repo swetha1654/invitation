@@ -13,11 +13,41 @@ const ASSET_BASE = (() => {
 
 /* ---------- Event data (edit here if plans change) ---------- */
 const ALL_EVENTS = [
-  { id: "haldi",      icon: "🌻", name: "Haldi",              when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM", where: "Farmhouse Collective" },
-  { id: "varapooje",  icon: "🪔", name: "Varapooje",          when: "Saturday, 5 Dec 2026 · 11 AM", where: "Sindhoor Convention Hall, JP Nagar" },
-  { id: "sangeeth",   icon: "🎶", name: "Sangeeth",           when: "Saturday, 5 Dec 2026 · 6 PM",  where: "Sindhoor Convention Hall, JP Nagar" },
-  { id: "muhurtham",  icon: "🕉️", name: "Muhurtham",          when: "Sunday, 6 Dec 2026 · 6 AM",    where: "Sindhoor Convention Hall, JP Nagar" },
-  { id: "reception",  icon: "✨", name: "Reception",          when: "Sunday, 6 Dec 2026 · 6 PM",    where: "Sindhoor Convention Hall, JP Nagar" },
+  {
+    id: "haldi",
+    icon: "🌻",
+    name: "Haldi",
+    when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM",
+    where: "Farmhouse Collective",
+  },
+  {
+    id: "varapooje",
+    icon: "🪔",
+    name: "Varapooje",
+    when: "Saturday, 5 Dec 2026 · 11 AM",
+    where: "Sindhoor Convention Hall, JP Nagar",
+  },
+  {
+    id: "sangeeth",
+    icon: "🎶",
+    name: "Sangeeth",
+    when: "Saturday, 5 Dec 2026 · 6 PM",
+    where: "Sindhoor Convention Hall, JP Nagar",
+  },
+  {
+    id: "muhurtham",
+    icon: "🕉️",
+    name: "Muhurtham",
+    when: "Sunday, 6 Dec 2026 · 6 AM",
+    where: "Sindhoor Convention Hall, JP Nagar",
+  },
+  {
+    id: "reception",
+    icon: "✨",
+    name: "Reception",
+    when: "Sunday, 6 Dec 2026 · 6 PM",
+    where: "Sindhoor Convention Hall, JP Nagar",
+  },
 ];
 
 /* A variant page can set window.INVITATION_EVENTS = ["muhurtham", "reception"]
@@ -42,8 +72,8 @@ const MUHURTHAM_DATE = new Date("2026-12-06T00:00:00+05:30");
     if (opened) return;
     opened = true;
 
-    overlay.classList.add("opening");   // seal + texts fade out
-    gate.classList.add("open");         // doors slide apart
+    overlay.classList.add("opening"); // seal + texts fade out
+    gate.classList.add("open"); // doors slide apart
 
     // After the doors part, reveal the invitation
     setTimeout(() => {
@@ -74,7 +104,9 @@ const MUHURTHAM_DATE = new Date("2026-12-06T00:00:00+05:30");
           document.documentElement.style.scrollBehavior = "auto";
           el.scrollIntoView();
           // Test hook: force-reveal everything (headless screenshots don't fire IntersectionObserver)
-          document.querySelectorAll(".reveal, .event-card").forEach((t) => t.classList.add("visible"));
+          document
+            .querySelectorAll(".reveal, .event-card")
+            .forEach((t) => t.classList.add("visible"));
         }
       }, 1400);
     }
@@ -91,7 +123,9 @@ function startLeaves() {
   leavesStarted = true;
 
   const layer = document.getElementById("leaves");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   if (reducedMotion) return;
 
   function spawnLeaf() {
@@ -100,14 +134,17 @@ function startLeaves() {
     leaf.classList.add("leaf");
     leaf.classList.add(kind < 0.55 ? "green" : kind < 0.85 ? "gold" : "petal");
 
-    const size = 12 + Math.random() * 18;               // 12–30px
-    const duration = 7 + Math.random() * 6;             // 7–13s fall
-    const sway = 20 + Math.random() * 60;               // horizontal drift
+    const size = 12 + Math.random() * 18; // 12–30px
+    const duration = 7 + Math.random() * 6; // 7–13s fall
+    const sway = 20 + Math.random() * 60; // horizontal drift
 
     leaf.style.width = `${size}px`;
     leaf.style.height = `${size}px`;
     leaf.style.left = `${Math.random() * 100}vw`;
-    leaf.style.setProperty("--sway", `${(Math.random() < 0.5 ? -1 : 1) * sway}px`);
+    leaf.style.setProperty(
+      "--sway",
+      `${(Math.random() < 0.5 ? -1 : 1) * sway}px`,
+    );
     leaf.style.animationDuration = `${duration}s`;
 
     layer.appendChild(leaf);
@@ -137,7 +174,7 @@ function observeReveals() {
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.15 },
   );
   targets.forEach((t) => io.observe(t));
 }
@@ -151,9 +188,9 @@ function observeReveals() {
    away to reveal the card.
    ============================================================ */
 const CARD_MESSAGES = {
-  haldi:     "Join us to celebrate our Haldi ceremony!",
+  haldi: "Join us to celebrate our Haldi ceremony!",
   varapooje: "Bless us at our Varapooje",
-  sangeeth:  "Dance the night away at our Sangeeth",
+  sangeeth: "Dance the night away at our Sangeeth",
   muhurtham: "Witness us tie the knot at our Muhurtham",
   reception: "Celebrate with us at our Reception",
 };
@@ -162,7 +199,7 @@ const CARD_MESSAGES = {
    (the image already carries the title & details, so the text block
    is hidden for these) */
 const CARD_IMAGES = {
-  haldi: "card_haldi.png",
+  haldi: "card_haldi.jpg",
   varapooje: "card_varapooje.png",
   sangeeth: "card_sangeeth.png",
   muhurtham: "card_muhurtham.png",
@@ -184,7 +221,9 @@ function artFrame(bg, inner) {
 
 const ART = {
   /* Dhol with sticks, music notes & sparkles */
-  sangeeth: artFrame("#E9D9F2", `
+  sangeeth: artFrame(
+    "#E9D9F2",
+    `
     <circle cx="160" cy="120" r="100" fill="#DCC6EC"/>
     <path d="M104 116 q56 -24 112 0 l0 46 q-56 24 -112 0 Z" fill="#A5281B"/>
     <ellipse cx="104" cy="139" rx="12" ry="23" fill="#E0A92E"/>
@@ -201,14 +240,36 @@ const ART = {
     <path d="M48 144 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2 Z" fill="#C9A227"/>
     <path d="M282 126 l1.8 5.2 l5.2 1.8 l-5.2 1.8 l-1.8 5.2 l-1.8 -5.2 l-5.2 -1.8 l5.2 -1.8 Z" fill="#C9A227"/>
     <path d="M238 191 l1.5 4.5 l4.5 1.5 l-4.5 1.5 l-1.5 4.5 l-1.5 -4.5 l-4.5 -1.5 l4.5 -1.5 Z" fill="#C9A227"/>
-    <path d="M88 47 l1.5 4.5 l4.5 1.5 l-4.5 1.5 l-1.5 4.5 l-1.5 -4.5 l-4.5 -1.5 l4.5 -1.5 Z" fill="#C9A227"/>`),
+    <path d="M88 47 l1.5 4.5 l4.5 1.5 l-4.5 1.5 l-1.5 4.5 l-1.5 -4.5 l-4.5 -1.5 l4.5 -1.5 Z" fill="#C9A227"/>`,
+  ),
 };
 const SCRATCH_THEMES = {
-  haldi:     { stops: ["#e7b53f", "#d99b22", "#c98415"], speck: [190, 130, 25], hint: "Rub off the turmeric" },
-  varapooje: { flowers: true, stops: ["#527f43", "#4c7a3f", "#2d5223"], hint: "Brush the flowers aside" },
-  sangeeth:  { stops: ["#6d3b8e", "#572c75", "#43205c"], speck: [95, 55, 135],  hint: "Tap the drum to reveal", taps: 4 },
-  muhurtham: { powder: true, stops: ["#c0392b", "#a5281b", "#8e1e12"], hint: "Wipe off the kumkum" },
-  reception: { curtain: true, stops: ["#8e1e2c", "#6b0f1a", "#4a0810"], hint: "Tap to part the curtains" },
+  haldi: {
+    stops: ["#e7b53f", "#d99b22", "#c98415"],
+    speck: [190, 130, 25],
+    hint: "Rub off the turmeric",
+  },
+  varapooje: {
+    flowers: true,
+    stops: ["#527f43", "#4c7a3f", "#2d5223"],
+    hint: "Brush the flowers aside",
+  },
+  sangeeth: {
+    stops: ["#6d3b8e", "#572c75", "#43205c"],
+    speck: [95, 55, 135],
+    hint: "Tap the drum to reveal",
+    taps: 4,
+  },
+  muhurtham: {
+    powder: true,
+    stops: ["#c0392b", "#a5281b", "#8e1e12"],
+    hint: "Wipe off the kumkum",
+  },
+  reception: {
+    curtain: true,
+    stops: ["#8e1e2c", "#6b0f1a", "#4a0810"],
+    hint: "Tap to part the curtains",
+  },
 };
 
 /* Remember which cards have been scratched open */
@@ -234,7 +295,7 @@ const cardLightbox = (function () {
   const lbCurtain = document.getElementById("lb-curtain");
 
   let currentEv = null;
-  let mode = "idle";         // idle → covered | tapped → revealed
+  let mode = "idle"; // idle → covered | tapped → revealed
   let drawing = false;
   let last = null;
   let lastCheck = 0;
@@ -258,28 +319,43 @@ const cardLightbox = (function () {
 
     // scattered leaves
     for (let i = 0; i < (w * h) / 2600; i++) {
-      cx.fillStyle = `rgba(${60 + (Math.random() * 40 | 0)},${110 + (Math.random() * 40 | 0)},${50 + (Math.random() * 30 | 0)},0.8)`;
+      cx.fillStyle = `rgba(${60 + ((Math.random() * 40) | 0)},${110 + ((Math.random() * 40) | 0)},${50 + ((Math.random() * 30) | 0)},0.8)`;
       cx.beginPath();
-      cx.ellipse(Math.random() * w, Math.random() * h, 6 + Math.random() * 10, 3 + Math.random() * 5, Math.random() * Math.PI, 0, 7);
+      cx.ellipse(
+        Math.random() * w,
+        Math.random() * h,
+        6 + Math.random() * 10,
+        3 + Math.random() * 5,
+        Math.random() * Math.PI,
+        0,
+        7,
+      );
       cx.fill();
     }
 
     // dense flowers
     const palettes = [
-      ["#F5820D", "#FFB03A"],  // marigold
-      ["#F2B705", "#F5820D"],  // yellow marigold
-      ["#ffffff", "#F2B705"],  // jasmine
-      ["#E8A0B4", "#C0392B"],  // pink rose
-      ["#C0392B", "#F5820D"],  // red rose
+      ["#F5820D", "#FFB03A"], // marigold
+      ["#F2B705", "#F5820D"], // yellow marigold
+      ["#ffffff", "#F2B705"], // jasmine
+      ["#E8A0B4", "#C0392B"], // pink rose
+      ["#C0392B", "#F5820D"], // red rose
     ];
     for (let i = 0; i < (w * h) / 800; i++) {
       const [petal, center] = palettes[(Math.random() * palettes.length) | 0];
-      const x = Math.random() * w, y = Math.random() * h;
+      const x = Math.random() * w,
+        y = Math.random() * h;
       const r = 6 + Math.random() * 9;
       for (let p = 0; p < 5; p++) {
         const a = (Math.PI * 2 * p) / 5 + Math.random() * 0.3;
         cx.beginPath();
-        cx.arc(x + Math.cos(a) * r * 0.7, y + Math.sin(a) * r * 0.7, r * 0.55, 0, 7);
+        cx.arc(
+          x + Math.cos(a) * r * 0.7,
+          y + Math.sin(a) * r * 0.7,
+          r * 0.55,
+          0,
+          7,
+        );
         cx.fillStyle = petal;
         cx.fill();
       }
@@ -306,7 +382,13 @@ const cardLightbox = (function () {
       cx.globalAlpha = 0.25 + Math.random() * 0.5;
       cx.fillStyle = shades[(Math.random() * shades.length) | 0];
       cx.beginPath();
-      cx.arc(Math.random() * w, Math.random() * h, 0.6 + Math.random() * 2.2, 0, 7);
+      cx.arc(
+        Math.random() * w,
+        Math.random() * h,
+        0.6 + Math.random() * 2.2,
+        0,
+        7,
+      );
       cx.fill();
     }
     cx.globalAlpha = 1;
@@ -315,14 +397,21 @@ const cardLightbox = (function () {
     for (let i = 0; i < 14; i++) {
       cx.fillStyle = "rgba(224, 85, 89, 0.16)";
       cx.beginPath();
-      cx.arc(Math.random() * w, Math.random() * h, 8 + Math.random() * 18, 0, 7);
+      cx.arc(
+        Math.random() * w,
+        Math.random() * h,
+        8 + Math.random() * 18,
+        0,
+        7,
+      );
       cx.fill();
     }
   }
 
   function paintCoating() {
     const theme = SCRATCH_THEMES[currentEv.id];
-    const w = lbContent.clientWidth, h = lbContent.clientHeight;
+    const w = lbContent.clientWidth,
+      h = lbContent.clientHeight;
     cx.globalCompositeOperation = "source-over";
 
     if (theme.flowers) {
@@ -341,7 +430,7 @@ const cardLightbox = (function () {
       // foil speckles
       const [r, gr, b] = theme.speck;
       for (let i = 0; i < (w * h) / 450; i++) {
-        cx.fillStyle = `rgba(${r + (Math.random() * 60 | 0)},${gr + (Math.random() * 40 | 0)},${b},${Math.random() * 0.3})`;
+        cx.fillStyle = `rgba(${r + ((Math.random() * 60) | 0)},${gr + ((Math.random() * 40) | 0)},${b},${Math.random() * 0.3})`;
         cx.fillRect(Math.random() * w, Math.random() * h, 2, 2);
       }
     }
@@ -372,11 +461,14 @@ const cardLightbox = (function () {
     currentEv = ev;
     const theme = SCRATCH_THEMES[ev.id];
     lbArt.innerHTML = cardArtHTML(ev);
-    lbText.hidden = Boolean(CARD_IMAGES[ev.id]);   // image cards already carry the text
+    lbText.hidden = Boolean(CARD_IMAGES[ev.id]); // image cards already carry the text
     lbMsg.textContent = CARD_MESSAGES[ev.id];
     lbWhen.textContent = ev.when;
     lbWhere.textContent = ev.where;
-    cv.setAttribute("aria-label", `Scratch card for ${ev.name} — scratch to reveal the invitation`);
+    cv.setAttribute(
+      "aria-label",
+      `Scratch card for ${ev.name} — scratch to reveal the invitation`,
+    );
 
     lb.classList.add("open");
     lb.setAttribute("aria-hidden", "false");
@@ -453,7 +545,8 @@ const cardLightbox = (function () {
       const len = Math.floor(ctx.sampleRate * 0.06);
       const buf = ctx.createBuffer(1, len, ctx.sampleRate);
       const data = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+      for (let i = 0; i < len; i++)
+        data[i] = (Math.random() * 2 - 1) * (1 - i / len);
       const noise = ctx.createBufferSource();
       noise.buffer = buf;
       const filter = ctx.createBiquadFilter();
@@ -464,11 +557,14 @@ const cardLightbox = (function () {
       nGain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
       noise.connect(filter).connect(nGain).connect(ctx.destination);
       noise.start(t);
-    } catch (_) { /* audio unavailable — stay silent */ }
+    } catch (_) {
+      /* audio unavailable — stay silent */
+    }
   }
 
   function updateDrumCount() {
-    lbDrumCount.textContent = tapsLeft === 1 ? "1 tap to go!" : `${tapsLeft} taps to go`;
+    lbDrumCount.textContent =
+      tapsLeft === 1 ? "1 tap to go!" : `${tapsLeft} taps to go`;
   }
 
   function drumTap() {
@@ -481,7 +577,7 @@ const cardLightbox = (function () {
     playDholHit(tapIndex);
     tapsLeft--;
     if (tapsLeft <= 0) {
-      playDholHit(tapIndex + 1);   // little bass+treble flourish on the final hit
+      playDholHit(tapIndex + 1); // little bass+treble flourish on the final hit
       revealCard();
     } else {
       updateDrumCount();
@@ -516,7 +612,9 @@ const cardLightbox = (function () {
       noise.connect(filter).connect(gain).connect(ctx.destination);
       noise.start(t);
       noise.stop(t + 0.9);
-    } catch (_) { /* audio unavailable — stay silent */ }
+    } catch (_) {
+      /* audio unavailable — stay silent */
+    }
   }
 
   function curtainTap() {
@@ -524,7 +622,7 @@ const cardLightbox = (function () {
     mode = "parting";
     lbCurtain.classList.add("parted");
     playCurtainWhoosh();
-    setTimeout(revealCard, 1150);   // let the curtains finish parting first
+    setTimeout(revealCard, 1150); // let the curtains finish parting first
   }
 
   function closeCard() {
@@ -549,7 +647,11 @@ const cardLightbox = (function () {
     cx.lineJoin = "round";
     cx.lineWidth = brush * 2;
     cx.beginPath();
-    if (last) { cx.moveTo(last.x, last.y); cx.lineTo(p.x, p.y); cx.stroke(); }
+    if (last) {
+      cx.moveTo(last.x, last.y);
+      cx.lineTo(p.x, p.y);
+      cx.stroke();
+    }
     cx.beginPath();
     cx.arc(p.x, p.y, brush, 0, 7);
     cx.fill();
@@ -558,14 +660,21 @@ const cardLightbox = (function () {
     // Check progress mid-scratch (throttled) so the card pops open
     // as soon as ~a third is cleared, without lifting the finger
     const now = Date.now();
-    if (now - lastCheck > 350) { lastCheck = now; checkCleared(); }
+    if (now - lastCheck > 350) {
+      lastCheck = now;
+      checkCleared();
+    }
   }
 
   function checkCleared() {
     if (mode !== "covered") return;
     const d = cx.getImageData(0, 0, cv.width, cv.height).data;
-    let cleared = 0, total = 0;
-    for (let i = 3; i < d.length; i += 32) { total++; if (d[i] === 0) cleared++; }
+    let cleared = 0,
+      total = 0;
+    for (let i = 3; i < d.length; i += 32) {
+      total++;
+      if (d[i] === 0) cleared++;
+    }
     // Reveal the whole card once ~a third is scratched — no need to clear it all
     if (cleared / total > 0.35) revealCard();
   }
@@ -592,30 +701,49 @@ const cardLightbox = (function () {
     if (mode !== "covered") return;
     drawing = true;
     last = null;
-    try { cv.setPointerCapture(e.pointerId); } catch (_) { /* older browsers */ }
+    try {
+      cv.setPointerCapture(e.pointerId);
+    } catch (_) {
+      /* older browsers */
+    }
     scratch(e);
     e.preventDefault();
   });
   cv.addEventListener("pointermove", scratch);
-  const stopScratch = () => { if (drawing) { drawing = false; last = null; checkCleared(); } };
+  const stopScratch = () => {
+    if (drawing) {
+      drawing = false;
+      last = null;
+      checkCleared();
+    }
+  };
   cv.addEventListener("pointerup", stopScratch);
   cv.addEventListener("pointercancel", stopScratch);
 
   // Keyboard fallback: Enter/Space reveals the card
   cv.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); revealCard(); }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      revealCard();
+    }
   });
 
   // Drum taps (mouse/touch + keyboard)
   lbDrum.addEventListener("click", drumTap);
   lbDrum.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); drumTap(); }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      drumTap();
+    }
   });
 
   // Curtain tap (mouse/touch + keyboard)
   lbCurtain.addEventListener("click", curtainTap);
   lbCurtain.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); curtainTap(); }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      curtainTap();
+    }
   });
 
   // Closing: X button, backdrop tap, or ESC
@@ -627,7 +755,10 @@ const cardLightbox = (function () {
 
   // Keep the coating fitted if the layout changes mid-scratch
   window.addEventListener("resize", () => {
-    if (mode === "covered" && lb.classList.contains("open")) { sizeCanvas(); paintCoating(); }
+    if (mode === "covered" && lb.classList.contains("open")) {
+      sizeCanvas();
+      paintCoating();
+    }
   });
 
   // Dev/test hook: #cardtest-<eventId> opens a card covered, #cardtest-<eventId>-open opens it revealed
@@ -649,7 +780,8 @@ function petalBurst(el, layer) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   layer = layer || document.getElementById("leaves");
   const r = el.getBoundingClientRect();
-  const cxp = r.left + r.width / 2, cyp = r.top + r.height / 2;
+  const cxp = r.left + r.width / 2,
+    cyp = r.top + r.height / 2;
   for (let i = 0; i < 12; i++) {
     const p = document.createElement("span");
     p.className = "burst-petal";
@@ -692,7 +824,10 @@ function petalBurst(el, layer) {
     thumb.className = "event-thumb";
     thumb.type = "button";
     thumb.dataset.thumb = ev.id;
-    thumb.setAttribute("aria-label", `Open the ${ev.name} invitation card — scratch to reveal`);
+    thumb.setAttribute(
+      "aria-label",
+      `Open the ${ev.name} invitation card — scratch to reveal`,
+    );
     thumb.innerHTML = `
       <span class="thumb-art">${cardArtHTML(ev)}<span class="thumb-cover" style="background: ${coverBg}" aria-hidden="true">${ev.icon}</span></span>
       <span class="thumb-badge">${theme.taps ? "Tap me 🥁" : theme.curtain ? "Tap me 🎭" : "Scratch me ✨"}</span>`;
@@ -717,7 +852,8 @@ function petalBurst(el, layer) {
     const diff = MUHURTHAM_DATE - new Date();
 
     if (diff <= 0) {
-      container.innerHTML = '<p class="countdown-done">The big day is here! 🎉</p>';
+      container.innerHTML =
+        '<p class="countdown-done">The big day is here! 🎉</p>';
       clearInterval(timer);
       return;
     }
