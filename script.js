@@ -202,7 +202,7 @@ const CARD_IMAGES = {
   haldi: "card_haldi.jpg",
   varapooje: "card_varapooje.png",
   sangeeth: "card_sangeeth.png",
-  muhurtham: "card_muhurtham.png",
+  muhurtham: " card_muhurtham.png",
   reception: "card_reception.png",
 };
 
