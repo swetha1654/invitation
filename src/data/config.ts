@@ -27,6 +27,5 @@ export const HERO = {
 };
 
 export const FOOTER = {
-  blessing:
-    "உங்களுடன் இணைந்து கொண்டாட ஆவலுடன் காத்திருக்கிறோம். ·  ನಿಮ್ಮೊಂದಿಗೆ ಸಂಭ್ರಮಿಸಲು ಕಾಯುತ್ತಿದ್ದೇವೆ · We can't wait to celebrate with you",
+  blessing: "We can't wait to celebrate with you",
 };
