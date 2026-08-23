@@ -1,6 +1,54 @@
-# React + TypeScript + Vite
+# 💍 Swetha & Akshith — Wedding Invitation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A digital wedding invitation built with React, TypeScript, and Vite, deployed on GitHub Pages.
+
+## 🔗 Live Invitation
+
+**[swetha1654.github.io/invitation](https://swetha1654.github.io/invitation/)**
+
+Share this link with your guests to view the invitation.
+
+---
+
+## ✨ Features
+
+- Animated gate reveal & curtain lightbox on first visit
+- Live countdown timer to the Muhurtham (6th December 2026)
+- Full event timeline — Haldi, Varapooje, Sangeeth, Muhurtham, Reception
+- Falling petals and ambient audio
+- Fully responsive for mobile guests
+
+## 📅 Events
+
+| Event | Date & Time | Venue |
+|---|---|---|
+| 🌻 Haldi | Sun, 29 Nov 2026 · 11 AM – 3 PM | Farmhouse Collective |
+| 🪔 Varapooje | Sat, 5 Dec 2026 · 11 AM | Sindhoor Convention Hall, JP Nagar |
+| 🎶 Sangeeth | Sat, 5 Dec 2026 · 6 PM | Sindhoor Convention Hall, JP Nagar |
+| 🕉️ Muhurtham | Sun, 6 Dec 2026 · 6 AM | Sindhoor Convention Hall, JP Nagar |
+| ✨ Reception | Sun, 6 Dec 2026 · 6 PM | Sindhoor Convention Hall, JP Nagar |
+
+---
+
+## 🛠 Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173/invitation/](http://localhost:5173/invitation/) in your browser.
+
+## 🚀 Deployment
+
+Pushes to `main` automatically deploy to GitHub Pages via the workflow in `.github/workflows/deploy.yml`.
+
+## ✏️ Customisation
+
+All names, dates, and venue details are in one place:
+
+- **`src/data/config.ts`** — couple names, parents, wedding date, venue, hero text
+- **`src/data/events.ts`** — event list, card messages, scratch card themes
 
 Currently, two official plugins are available:
 
