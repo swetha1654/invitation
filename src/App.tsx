@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { WeddingEvent } from "./data/events";
+import { GUEST_TOKENS, getEventsForTier } from "./data/events";
 import FallingLeaves from "./components/FallingLeaves";
 import GateOverlay from "./components/gate/GateOverlay";
 import Hero from "./components/hero/Hero";
@@ -7,8 +8,16 @@ import EventTimeline from "./components/events/EventTimeline";
 import Countdown from "./components/Countdown";
 import Footer from "./components/Footer";
 import Lightbox from "./components/lightbox/Lightbox";
+import NotInvited from "./components/NotInvited";
 
 export default function App() {
+  const events = useMemo(() => {
+    const token = window.location.hash.replace("#", "");
+    const tier = GUEST_TOKENS[token];
+    return tier ? getEventsForTier(tier) : null;
+  }, []);
+
+  if (!events) return <NotInvited />;
   const [revealed, setRevealed] = useState(false);
   const [lightboxEvent, setLightboxEvent] = useState<WeddingEvent | null>(null);
   const [revealedCards, setRevealedCards] = useState<Set<string>>(new Set());
@@ -39,6 +48,7 @@ export default function App() {
         <main id="invitation">
           <Hero />
           <EventTimeline
+            events={events}
             onCardOpen={setLightboxEvent}
             revealedCards={revealedCards}
           />
