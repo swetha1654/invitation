@@ -4,10 +4,15 @@ import EventCard from "./EventCard";
 
 interface Props {
   onCardOpen: (event: WeddingEvent) => void;
+  onInfoOpen: (event: WeddingEvent) => void;
   revealedCards: Set<string>;
 }
 
-export default function EventTimeline({ onCardOpen, revealedCards }: Props) {
+export default function EventTimeline({
+  onCardOpen,
+  onInfoOpen,
+  revealedCards,
+}: Props) {
   const title = useReveal();
   const sub = useReveal();
 
@@ -26,6 +31,7 @@ export default function EventTimeline({ onCardOpen, revealedCards }: Props) {
             event={ev}
             revealed={revealedCards.has(ev.id)}
             onOpen={() => onCardOpen(ev)}
+            onLearnMore={() => onInfoOpen(ev)}
           />
         ))}
       </div>

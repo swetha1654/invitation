@@ -10,6 +10,7 @@ interface Props {
   event: WeddingEvent;
   revealed: boolean;
   onOpen: () => void;
+  onLearnMore: () => void;
 }
 
 function CardArt({ event }: { event: WeddingEvent }) {
@@ -30,7 +31,12 @@ function CardArt({ event }: { event: WeddingEvent }) {
   return null;
 }
 
-export default function EventCard({ event, revealed, onOpen }: Props) {
+export default function EventCard({
+  event,
+  revealed,
+  onOpen,
+  onLearnMore,
+}: Props) {
   const card = useReveal();
   const theme = SCRATCH_THEMES[event.id];
 
@@ -56,6 +62,13 @@ export default function EventCard({ event, revealed, onOpen }: Props) {
         <h3 className="event-name">{event.name}</h3>
         <p className="event-when">{event.when}</p>
         <p className="event-where">{event.where}</p>
+        <button
+          className="event-learn-more"
+          type="button"
+          onClick={onLearnMore}
+        >
+          A little about this →
+        </button>
       </div>
 
       <button
