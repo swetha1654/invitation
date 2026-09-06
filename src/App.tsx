@@ -18,7 +18,6 @@ export default function App() {
     return tier ? getEventsForTier(tier) : null;
   }, []);
 
-  if (!events) return <NotInvited />;
   const [revealed, setRevealed] = useState(false);
   const [lightboxEvent, setLightboxEvent] = useState<WeddingEvent | null>(null);
   const [infoEvent, setInfoEvent] = useState<WeddingEvent | null>(null);
@@ -40,6 +39,9 @@ export default function App() {
 
   const handleClose = useCallback(() => setLightboxEvent(null), []);
   const handleInfoClose = useCallback(() => setInfoEvent(null), []);
+
+  // All hooks must run before this — early return happens after
+  if (!events) return <NotInvited />;
 
   return (
     <>
