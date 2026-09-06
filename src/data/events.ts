@@ -25,7 +25,7 @@ export const ALL_EVENTS: WeddingEvent[] = [
     icon: "🌻",
     name: "Haldi",
     when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM",
-    where: "Farmhouse Collective",
+    where: "The backyard, Farmhouse Collective",
   },
   {
     id: "varapooje",
@@ -38,14 +38,14 @@ export const ALL_EVENTS: WeddingEvent[] = [
     id: "sangeeth",
     icon: "🎶",
     name: "Sangeeth",
-    when: "Saturday, 5 Dec 2026 · 6 PM",
+    when: "Saturday, 5 Dec 2026 · 5 PM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
     id: "muhurtham",
     icon: "🕉️",
     name: "Muhurtham",
-    when: "Sunday, 6 Dec 2026 · 6 AM",
+    when: "Oonjal Muhurtham · 6:30 AM\nMuhurtham · 8:44 AM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
@@ -57,6 +57,53 @@ export const ALL_EVENTS: WeddingEvent[] = [
   },
 ];
 
+export interface EventInfoSection {
+  title: string;
+  body: string;
+}
+
+/** "A little about this" modal copy, in our own words */
+export const EVENT_INFO: Record<string, string[]> = {
+  haldi: [
+    "A little turmeric, lots of laughter, and blessings from our families. Haldi is a simple and joyful way to begin the wedding celebrations, with loved ones coming together to apply turmeric and share their blessings with us.",
+    "It's one of those traditions that brings everyone together before the big day, with plenty of laughter, photos, and a little bit of turmeric everywhere.",
+  ],
+  varapooje: [
+    "A special welcome to the groom and his family as our two families come together. Varapooje is a traditional ceremony where the bride's family welcomes the groom and celebrates his arrival.",
+    "More than anything, it's a warm beginning to bringing two families together, with blessings, traditions, and lots of excitement for what's to come.",
+  ],
+  sangeeth: [
+    "An evening of music, dance, laughter and a little friendly competition between the two families. Sangeeth is all about coming together, putting on a show, and celebrating before the wedding day arrives.",
+    "There'll be songs, performances, dancing, and hopefully a few surprises along the way. Mostly, it's an excuse for everyone to have some fun together.",
+  ],
+  reception: [
+    "An evening to celebrate the newlyweds with everyone we love. The formalities are behind us, so it's time to relax, catch up with family and friends, and simply enjoy the evening.",
+    "Good food, happy conversations, lots of pictures, and plenty of blessings. A celebration of this new chapter with everyone who made the journey special.",
+  ],
+};
+
+/** Multi-part rituals shown as sections inside a single event's modal */
+export const EVENT_INFO_SECTIONS: Record<string, EventInfoSection[]> = {
+  muhurtham: [
+    {
+      title: "Kashi Yatre",
+      body: "A playful little ritual where the groom sets off on a symbolic journey, only to be brought back and reminded that there's a wedding waiting for him. It's a light-hearted moment in the middle of all the wedding traditions, with the families joining in on the fun.",
+    },
+    {
+      title: "Oonjal",
+      body: "The bride and groom come together on the swing, surrounded by music, flowers, and blessings from their families. It's a beautiful and relaxed part of the wedding, filled with traditional songs, laughter, and a few playful moments shared with the family.",
+    },
+    {
+      title: "Muhurtham",
+      body: "At the auspicious moment, the thali is tied and two lives officially begin their journey together. Surrounded by family and loved ones, this is the moment we've all been waiting for. It is the heart of the wedding ceremony and the beginning of a new chapter together.",
+    },
+    {
+      title: "Nalangu",
+      body: "A light-hearted celebration with playful rituals, laughter, and plenty of interaction between the bride and groom and their families. It's a chance to relax, have some fun, and enjoy the lighter side of the wedding celebrations together.",
+    },
+  ],
+};
+
 export const CARD_MESSAGES: Record<string, string> = {
   haldi: "Join us to celebrate our Haldi ceremony!",
   varapooje: "Bless us at our Varapooje",
@@ -64,6 +111,29 @@ export const CARD_MESSAGES: Record<string, string> = {
   muhurtham: "Witness us tie the knot at our Muhurtham",
   reception: "Celebrate with us at our Reception",
 };
+
+// ─── Guest tiers ─────────────────────────────────────────────────────────────
+
+export type GuestTier = "all" | "no-haldi" | "core";
+
+/**
+ * Share the matching URL hash with each guest group:
+ *   All events   →  …/invitation/#xk9mv
+ *   No Haldi     →  …/invitation/#qn7pt
+ *   Core only    →  …/invitation/#rz4bw  (no Haldi, no Varapooje)
+ */
+export const GUEST_TOKENS: Record<string, GuestTier> = {
+  xk9mv: "all",
+  qn7pt: "no-haldi",
+  rz4bw: "core",
+};
+
+export function getEventsForTier(tier: GuestTier): WeddingEvent[] {
+  if (tier === "no-haldi") return ALL_EVENTS.filter((e) => e.id !== "haldi");
+  if (tier === "core")
+    return ALL_EVENTS.filter((e) => e.id !== "haldi" && e.id !== "varapooje");
+  return ALL_EVENTS;
+}
 
 /** Resolved Vite asset URLs — swap images in src/assets/cards/ */
 export const CARD_IMAGES: Partial<Record<string, string>> = CARD_IMAGE_URLS;

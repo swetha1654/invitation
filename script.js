@@ -18,7 +18,7 @@ const ALL_EVENTS = [
     icon: "🌻",
     name: "Haldi",
     when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM",
-    where: "Farmhouse Collective",
+    where: "The backyard, Farmhouse Collective",
   },
   {
     id: "varapooje",
@@ -31,14 +31,14 @@ const ALL_EVENTS = [
     id: "sangeeth",
     icon: "🎶",
     name: "Sangeeth",
-    when: "Saturday, 5 Dec 2026 · 6 PM",
+    when: "Saturday, 5 Dec 2026 · 5 PM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
     id: "muhurtham",
     icon: "🕉️",
     name: "Muhurtham",
-    when: "Sunday, 6 Dec 2026 · 6 AM",
+    when: "Oonjal Muhurtham · 6:30 AM\nMuhurtham · 8:44 AM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
@@ -193,6 +193,48 @@ const CARD_MESSAGES = {
   sangeeth: "Dance the night away at our Sangeeth",
   muhurtham: "Witness us tie the knot at our Muhurtham",
   reception: "Celebrate with us at our Reception",
+};
+
+/* "A little about this" modal copy, in our own words */
+const EVENT_INFO = {
+  haldi: [
+    "A little turmeric, lots of laughter, and blessings from our families. Haldi is a simple and joyful way to begin the wedding celebrations, with loved ones coming together to apply turmeric and share their blessings with us.",
+    "It's one of those traditions that brings everyone together before the big day, with plenty of laughter, photos, and a little bit of turmeric everywhere.",
+  ],
+  varapooje: [
+    "A special welcome to the groom and his family as our two families come together. Varapooje is a traditional ceremony where the bride's family welcomes the groom and celebrates his arrival.",
+    "More than anything, it's a warm beginning to bringing two families together, with blessings, traditions, and lots of excitement for what's to come.",
+  ],
+  sangeeth: [
+    "An evening of music, dance, laughter and a little friendly competition between the two families. Sangeeth is all about coming together, putting on a show, and celebrating before the wedding day arrives.",
+    "There'll be songs, performances, dancing, and hopefully a few surprises along the way. Mostly, it's an excuse for everyone to have some fun together.",
+  ],
+  reception: [
+    "An evening to celebrate the newlyweds with everyone we love. The formalities are behind us, so it's time to relax, catch up with family and friends, and simply enjoy the evening.",
+    "Good food, happy conversations, lots of pictures, and plenty of blessings. A celebration of this new chapter with everyone who made the journey special.",
+  ],
+};
+
+/* Multi-part rituals shown as sections inside a single event's modal */
+const EVENT_INFO_SECTIONS = {
+  muhurtham: [
+    {
+      title: "Kashi Yatre",
+      body: "A playful little ritual where the groom sets off on a symbolic journey, only to be brought back and reminded that there's a wedding waiting for him. It's a light-hearted moment in the middle of all the wedding traditions, with the families joining in on the fun.",
+    },
+    {
+      title: "Oonjal",
+      body: "The bride and groom come together on the swing, surrounded by music, flowers, and blessings from their families. It's a beautiful and relaxed part of the wedding, filled with traditional songs, laughter, and a few playful moments shared with the family.",
+    },
+    {
+      title: "Muhurtham",
+      body: "At the auspicious moment, the thali is tied and two lives officially begin their journey together. Surrounded by family and loved ones, this is the moment we've all been waiting for. It is the heart of the wedding ceremony and the beginning of a new chapter together.",
+    },
+    {
+      title: "Nalangu",
+      body: "A light-hearted celebration with playful rituals, laughter, and plenty of interaction between the bride and groom and their families. It's a chance to relax, have some fun, and enjoy the lighter side of the wedding celebrations together.",
+    },
+  ],
 };
 
 /* Events with a real designed card image — revealed under the coating
@@ -797,6 +839,58 @@ function petalBurst(el, layer) {
 }
 
 /* ============================================================
+   4a. Ritual info modal — "Learn more" popup explaining each event
+   ============================================================ */
+const infoModal = (function () {
+  const modal = document.getElementById("info-modal");
+  const backdrop = document.getElementById("info-backdrop");
+  const close = document.getElementById("info-close");
+  const icon = document.getElementById("info-icon");
+  const title = document.getElementById("info-title");
+  const content = document.getElementById("info-content");
+
+  function open(ev) {
+    icon.textContent = ev.icon;
+    title.textContent = ev.name;
+
+    const sections = EVENT_INFO_SECTIONS[ev.id];
+    if (sections) {
+      content.className = "info-sections";
+      content.innerHTML = sections
+        .map(
+          (s) =>
+            `<div class="info-section"><h4 class="info-section-title">${s.title}</h4><p class="info-body">${s.body}</p></div>`,
+        )
+        .join("");
+    } else {
+      const paragraphs = EVENT_INFO[ev.id] || [];
+      content.className = "info-paragraphs";
+      content.innerHTML = paragraphs
+        .map((p) => `<p class="info-body">${p}</p>`)
+        .join("");
+    }
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lb-open");
+  }
+
+  function hide() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lb-open");
+  }
+
+  close.addEventListener("click", hide);
+  backdrop.addEventListener("click", hide);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open")) hide();
+  });
+
+  return { open };
+})();
+
+/* ============================================================
     4. Render event timeline
    ============================================================ */
 (function renderEvents() {
@@ -812,7 +906,11 @@ function petalBurst(el, layer) {
         <h3 class="event-name">${ev.name}</h3>
         <p class="event-when">${ev.when}</p>
         <p class="event-where">${ev.where}</p>
+        <button class="event-learn-more" type="button">A little about this →</button>
       </div>`;
+    card
+      .querySelector(".event-learn-more")
+      .addEventListener("click", () => infoModal.open(ev));
 
     // Thumbnail that opens the invitation card — covered in the
     // event's themed coating until the card has been scratched open
