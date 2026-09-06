@@ -481,8 +481,9 @@ body.revealed #invitation {
 
 .section-sub {
   font-style: italic;
-  font-size: 1.15rem;
-  color: #7a6650;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
   margin-bottom: 3rem;
 }
 
@@ -571,8 +572,9 @@ body.revealed #invitation {
 
 .hero-line {
   font-style: italic;
-  font-size: 1.25rem;
-  color: #7a6650;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--ink);
   margin-bottom: 1rem;
 }
 
@@ -602,17 +604,18 @@ body.revealed #invitation {
 .couple .parents {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-style: italic;
-  font-weight: 400;
-  font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+  font-weight: 500;
+  font-size: clamp(1rem, 3.4vw, 1.35rem);
   line-height: 1.35;
-  color: #7a6650;
+  color: var(--ink);
   margin: 0.1rem 0 0.7rem;
 }
 
 .hero-sub {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-style: italic;
-  color: #7a6650;
+  font-weight: 500;
+  color: var(--ink);
   margin-bottom: 2.2rem;
 }
 
@@ -629,8 +632,9 @@ body.revealed #invitation {
 }
 
 .venue-line {
-  font-size: 1.15rem;
-  color: #7a6650;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
   margin-top: 0.4rem;
 }
 
@@ -1129,8 +1133,9 @@ body.revealed #invitation {
   margin-top: 0.7rem;
   text-align: center;
   font-style: italic;
-  color: #7a6650;
-  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 1rem;
   min-height: 1.2rem;
 }
 
@@ -1217,13 +1222,142 @@ body.lb-open {
   font-size: 1.05rem;
   font-weight: 600;
   margin-top: 0.2rem;
+  white-space: pre-line;
 }
 
 .event-where {
   font-style: italic;
-  color: #7a6650;
-  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 1.1rem;
   margin-top: 0.15rem;
+}
+
+.event-learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+  background: none;
+  border: none;
+  border-bottom: 1px dashed var(--gold);
+  color: var(--maroon-soft);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 0.1rem 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.event-learn-more:hover,
+.event-learn-more:focus-visible {
+  color: var(--maroon);
+}
+
+/* ============ Ritual info modal ============ */
+#info-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  display: flex;
+  padding: 1.2rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s;
+}
+
+#info-modal.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 12, 16, 0.78);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.info-card {
+  position: relative;
+  margin: auto;
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  border-radius: 18px;
+  width: 92vw;
+  max-width: 420px;
+  padding: 2rem 1.6rem 1.8rem;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9) translateY(14px);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#info-modal.open .info-card {
+  transform: none;
+}
+
+.info-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 6;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--maroon);
+  color: var(--gold-light);
+  border: 1.5px solid var(--gold);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.info-icon {
+  font-size: 2.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.info-title {
+  font-family: "Marcellus", serif;
+  font-size: 1.5rem;
+  color: var(--maroon);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.9rem;
+}
+
+.info-body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.65;
+  color: var(--maroon-deep);
+  text-align: left;
+}
+
+.info-paragraphs .info-body + .info-body {
+  margin-top: 0.9rem;
+}
+
+.info-sections .info-section + .info-section {
+  margin-top: 1.2rem;
+}
+
+.info-section-title {
+  font-family: "Marcellus", serif;
+  font-size: 1.15rem;
+  color: var(--maroon);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
 }
 
 /* ============ Countdown ============ */

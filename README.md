@@ -20,13 +20,13 @@ Share this link with your guests to view the invitation.
 
 ## 📅 Events
 
-| Event | Date & Time | Venue |
-|---|---|---|
-| 🌻 Haldi | Sun, 29 Nov 2026 · 11 AM – 3 PM | Farmhouse Collective |
-| 🪔 Varapooje | Sat, 5 Dec 2026 · 11 AM | Sindhoor Convention Hall, JP Nagar |
-| 🎶 Sangeeth | Sat, 5 Dec 2026 · 6 PM | Sindhoor Convention Hall, JP Nagar |
-| 🕉️ Muhurtham | Sun, 6 Dec 2026 · 6 AM | Sindhoor Convention Hall, JP Nagar |
-| ✨ Reception | Sun, 6 Dec 2026 · 6 PM | Sindhoor Convention Hall, JP Nagar |
+| Event        | Date & Time                                                   | Venue                              |
+| ------------ | ------------------------------------------------------------- | ---------------------------------- |
+| 🌻 Haldi     | Sun, 29 Nov 2026 · 11 AM – 3 PM                               | The backyard, Farmhouse Collective |
+| 🪔 Varapooje | Sat, 5 Dec 2026 · 11 AM                                       | Sindhoor Convention Hall, JP Nagar |
+| 🎶 Sangeeth  | Sat, 5 Dec 2026 · 5 PM                                        | Sindhoor Convention Hall, JP Nagar |
+| 🕉️ Muhurtham | Sun, 6 Dec 2026 · Oonjal Muhurtham 6:30 AM, Muhurtham 8:44 AM | Sindhoor Convention Hall, JP Nagar |
+| ✨ Reception | Sun, 6 Dec 2026 · 6 PM                                        | Sindhoor Convention Hall, JP Nagar |
 
 ---
 
@@ -65,9 +65,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -82,42 +82,40 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
-
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
-
+]);
 ```
