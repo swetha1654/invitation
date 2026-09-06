@@ -112,6 +112,29 @@ export const CARD_MESSAGES: Record<string, string> = {
   reception: "Celebrate with us at our Reception",
 };
 
+// ─── Guest tiers ─────────────────────────────────────────────────────────────
+
+export type GuestTier = "all" | "no-haldi" | "core";
+
+/**
+ * Share the matching URL hash with each guest group:
+ *   All events   →  …/invitation/#xk9mv
+ *   No Haldi     →  …/invitation/#qn7pt
+ *   Core only    →  …/invitation/#rz4bw  (no Haldi, no Varapooje)
+ */
+export const GUEST_TOKENS: Record<string, GuestTier> = {
+  xk9mv: "all",
+  qn7pt: "no-haldi",
+  rz4bw: "core",
+};
+
+export function getEventsForTier(tier: GuestTier): WeddingEvent[] {
+  if (tier === "no-haldi") return ALL_EVENTS.filter((e) => e.id !== "haldi");
+  if (tier === "core")
+    return ALL_EVENTS.filter((e) => e.id !== "haldi" && e.id !== "varapooje");
+  return ALL_EVENTS;
+}
+
 /** Resolved Vite asset URLs — swap images in src/assets/cards/ */
 export const CARD_IMAGES: Partial<Record<string, string>> = CARD_IMAGE_URLS;
 
