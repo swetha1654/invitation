@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function EventTimeline({
+  events,
   onCardOpen,
   onInfoOpen,
   revealedCards,
