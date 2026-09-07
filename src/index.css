@@ -749,7 +749,12 @@ body.revealed #invitation {
 }
 
 .event-body {
-  flex: 1;
+  /* flex:1 alone lets the box grow with its content, so bodies ended up
+     different widths on narrow screens and the thumb cards went misaligned.
+     flex:1 1 0 + min-width:0 makes every body start from the same 0 basis and
+     stretch to fill the identical space between dot and thumb → uniform width. */
+  flex: 1 1 0;
+  min-width: 0;
   position: relative;
   background: #fffaf1;
   border: 1px solid var(--gold-pale);
