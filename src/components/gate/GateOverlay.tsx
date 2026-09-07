@@ -5,9 +5,10 @@ const MARIGOLD_COUNT = 20;
 
 interface Props {
   onOpen: () => void;
+  onClosed: () => void;
 }
 
-export default function GateOverlay({ onOpen }: Props) {
+export default function GateOverlay({ onOpen, onClosed }: Props) {
   const openedRef = useRef(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const gateRef = useRef<HTMLDivElement>(null);
@@ -28,7 +29,7 @@ export default function GateOverlay({ onOpen }: Props) {
       onOpen();
     }, 1200);
 
-    setTimeout(() => overlay.remove(), 2300);
+    setTimeout(onClosed, 2300);
   }
 
   return (

@@ -32,10 +32,12 @@ body {
   background: var(--cream);
   color: var(--ink);
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body.locked {
   overflow: hidden;
+  overflow: clip;
   height: 100vh;
 }
 
@@ -1081,6 +1083,7 @@ body.revealed #invitation {
 
 body.lb-open {
   overflow: hidden;
+  overflow: clip;
 }
 
 /* Scratch coating canvas (shared by the lightbox card) */

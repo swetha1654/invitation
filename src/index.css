@@ -40,12 +40,14 @@ body {
   background: var(--cream);
   color: var(--ink);
   overflow-x: hidden;
+  overflow-x: clip; /* avoids Safari's fixed-relative-to-body quirk triggered by overflow:hidden */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 body.locked {
   overflow: hidden;
+  overflow: clip;
   height: 100vh;
   height: 100dvh; /* accounts for mobile browser chrome */
 }
@@ -1141,6 +1143,7 @@ body.revealed #invitation {
 
 body.lb-open {
   overflow: hidden;
+  overflow: clip;
 }
 
 /* Scratch coating canvas (shared by the lightbox card) */

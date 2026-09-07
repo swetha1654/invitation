@@ -70,6 +70,13 @@ export default function Hero() {
         className={`scroll-cue ${cue.cls}`}
         href="#events"
         aria-label="Scroll to events"
+        onClick={(e) => {
+          // Avoid overwriting the guest-token hash used for routing
+          e.preventDefault();
+          document
+            .getElementById("events")
+            ?.scrollIntoView({ behavior: "smooth" });
+        }}
       >
         <span className="chev" />
       </a>
