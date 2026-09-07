@@ -19,6 +19,7 @@ export default function App() {
   }, []);
 
   const [revealed, setRevealed] = useState(false);
+  const [gateVisible, setGateVisible] = useState(true);
   const [lightboxEvent, setLightboxEvent] = useState<WeddingEvent | null>(null);
   const [infoEvent, setInfoEvent] = useState<WeddingEvent | null>(null);
   const [revealedCards, setRevealedCards] = useState<Set<string>>(new Set());
@@ -30,7 +31,10 @@ export default function App() {
   }, [revealed]);
 
   useEffect(() => {
-    document.body.classList.toggle("lb-open", lightboxEvent !== null || infoEvent !== null);
+    document.body.classList.toggle(
+      "lb-open",
+      lightboxEvent !== null || infoEvent !== null,
+    );
   }, [lightboxEvent, infoEvent]);
 
   const handleRevealCard = useCallback((id: string) => {
@@ -47,7 +51,12 @@ export default function App() {
     <>
       <FallingLeaves active={revealed} />
 
-      <GateOverlay onOpen={() => setRevealed(true)} />
+      {gateVisible && (
+        <GateOverlay
+          onOpen={() => setRevealed(true)}
+          onClosed={() => setGateVisible(false)}
+        />
+      )}
 
       {revealed && (
         <main id="invitation">
@@ -74,4 +83,3 @@ export default function App() {
     </>
   );
 }
-
