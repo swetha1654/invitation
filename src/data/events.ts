@@ -24,21 +24,21 @@ export const ALL_EVENTS: WeddingEvent[] = [
     id: "haldi",
     icon: "🌻",
     name: "Haldi",
-    when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM",
+    when: "Sunday, 29 Nov 2026\n11 AM – 3 PM",
     where: "The backyard, Farmhouse Collective",
   },
   {
     id: "varapooje",
     icon: "🪔",
     name: "Varapooje",
-    when: "Saturday, 5 Dec 2026 · 11 AM",
+    when: "Saturday, 5 Dec 2026\n11 AM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
     id: "sangeeth",
     icon: "🎶",
     name: "Sangeeth",
-    when: "Saturday, 5 Dec 2026 · 5 PM",
+    when: "Saturday, 5 Dec 2026\n5 PM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
@@ -52,7 +52,7 @@ export const ALL_EVENTS: WeddingEvent[] = [
     id: "reception",
     icon: "✨",
     name: "Reception",
-    when: "Sunday, 6 Dec 2026 · 6 PM",
+    when: "Sunday, 6 Dec 2026\n6 PM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
 ];
