@@ -7,6 +7,7 @@ import Hero from "./components/hero/Hero";
 import EventTimeline from "./components/events/EventTimeline";
 import InfoModal from "./components/events/InfoModal";
 import Countdown from "./components/Countdown";
+import Location from "./components/Location";
 import Footer from "./components/Footer";
 import Lightbox from "./components/lightbox/Lightbox";
 import NotInvited from "./components/NotInvited";
@@ -67,6 +68,7 @@ export default function App() {
             onInfoOpen={setInfoEvent}
             revealedCards={revealedCards}
           />
+          <Location />
           <Countdown />
           <Footer />
         </main>

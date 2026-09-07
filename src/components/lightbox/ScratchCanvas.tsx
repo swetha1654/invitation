@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SCRATCH_THEMES, type WeddingEvent } from "../../data/events";
-import { paintCoating } from "../../utils/painting";
+import {
+  createFlowerField,
+  paintCoating,
+  type FlowerField,
+} from "../../utils/painting";
 
 interface Props {
   event: WeddingEvent;
@@ -9,6 +13,7 @@ interface Props {
 
 export default function ScratchCanvas({ event, onRevealed }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const flowerCanvasRef = useRef<HTMLCanvasElement>(null);
   const [on, setOn] = useState(false);
   const [fading, setFading] = useState(false);
   const drawingRef = useRef(false);
@@ -16,6 +21,14 @@ export default function ScratchCanvas({ event, onRevealed }: Props) {
   const lastCheckRef = useRef(0);
   const revealedRef = useRef(false);
   const theme = SCRATCH_THEMES[event.id];
+  const isFlowers = theme.flowers === true;
+
+  // Mutable particle simulation, lives outside React state
+  const fieldRef = useRef<FlowerField | null>(null);
+  const getField = useCallback(() => {
+    fieldRef.current ??= createFlowerField(() => flowerCanvasRef.current);
+    return fieldRef.current;
+  }, []);
 
   const sizeAndPaint = useCallback(() => {
     const cv = canvasRef.current;
@@ -26,8 +39,16 @@ export default function ScratchCanvas({ event, onRevealed }: Props) {
     cv.height = Math.round(parent.clientHeight * dpr);
     const ctx = cv.getContext("2d")!;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    paintCoating(ctx, parent.clientWidth, parent.clientHeight, theme);
-  }, [theme]);
+    paintCoating(ctx, parent.clientWidth, parent.clientHeight, theme, isFlowers);
+
+    if (isFlowers && flowerCanvasRef.current) {
+      const fcv = flowerCanvasRef.current;
+      fcv.width = cv.width;
+      fcv.height = cv.height;
+      fcv.getContext("2d")!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      getField().reset(parent.clientWidth, parent.clientHeight);
+    }
+  }, [theme, isFlowers, getField]);
 
   // Initial paint after layout settles (matches original 60ms delay)
   useEffect(() => {
@@ -51,8 +72,15 @@ export default function ScratchCanvas({ event, onRevealed }: Props) {
     if (revealedRef.current) return;
     revealedRef.current = true;
     setFading(true);
+    // Fling any remaining flowers outward as the card reveals
+    if (isFlowers) getField().fling();
     setTimeout(onRevealed, 600);
-  }, [onRevealed]);
+  }, [onRevealed, isFlowers, getField]);
+
+  // Stop the physics loop on unmount
+  useEffect(() => {
+    return () => fieldRef.current?.stop();
+  }, []);
 
   const checkCleared = useCallback(() => {
     if (fading) return;
@@ -82,13 +110,14 @@ export default function ScratchCanvas({ event, onRevealed }: Props) {
       const ctx = cv.getContext("2d")!;
       const p = getPos(e);
       const brush = Math.max(18, cv.parentElement!.clientWidth * 0.08);
+      const last = lastRef.current;
       ctx.globalCompositeOperation = "destination-out";
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.lineWidth = brush * 2;
       ctx.beginPath();
-      if (lastRef.current) {
-        ctx.moveTo(lastRef.current.x, lastRef.current.y);
+      if (last) {
+        ctx.moveTo(last.x, last.y);
         ctx.lineTo(p.x, p.y);
         ctx.stroke();
       }
@@ -97,13 +126,24 @@ export default function ScratchCanvas({ event, onRevealed }: Props) {
       ctx.fill();
       lastRef.current = p;
 
+      // Brush the flowers aside — push them along the sweep direction
+      if (isFlowers) {
+        getField().push(
+          p.x,
+          p.y,
+          last ? p.x - last.x : 0,
+          last ? p.y - last.y : 0,
+          brush,
+        );
+      }
+
       const now = Date.now();
       if (now - lastCheckRef.current > 350) {
         lastCheckRef.current = now;
         checkCleared();
       }
     },
-    [fading, checkCleared],
+    [fading, checkCleared, isFlowers, getField],
   );
 
   const stopScratch = useCallback(() => {
@@ -115,32 +155,41 @@ export default function ScratchCanvas({ event, onRevealed }: Props) {
   }, [checkCleared]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className={`scratch-canvas${on ? " on" : ""}${fading ? " fade" : ""}`}
-      role="button"
-      tabIndex={0}
-      aria-label={`Scratch the ${event.name} card to reveal — ${theme.hint}`}
-      onPointerDown={(e) => {
-        drawingRef.current = true;
-        lastRef.current = null;
-        try {
-          canvasRef.current?.setPointerCapture(e.pointerId);
-        } catch {
-          /* older browsers */
-        }
-        scratch(e);
-        e.preventDefault();
-      }}
-      onPointerMove={scratch}
-      onPointerUp={stopScratch}
-      onPointerCancel={stopScratch}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
+    <>
+      {isFlowers && (
+        <canvas
+          ref={flowerCanvasRef}
+          className={`scratch-canvas flower-layer${on ? " on" : ""}${fading ? " fade" : ""}`}
+          aria-hidden="true"
+        />
+      )}
+      <canvas
+        ref={canvasRef}
+        className={`scratch-canvas${on ? " on" : ""}${fading ? " fade" : ""}`}
+        role="button"
+        tabIndex={0}
+        aria-label={`Scratch the ${event.name} card to reveal — ${theme.hint}`}
+        onPointerDown={(e) => {
+          drawingRef.current = true;
+          lastRef.current = null;
+          try {
+            canvasRef.current?.setPointerCapture(e.pointerId);
+          } catch {
+            /* older browsers */
+          }
+          scratch(e);
           e.preventDefault();
-          triggerReveal();
-        }
-      }}
-    />
+        }}
+        onPointerMove={scratch}
+        onPointerUp={stopScratch}
+        onPointerCancel={stopScratch}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            triggerReveal();
+          }
+        }}
+      />
+    </>
   );
 }

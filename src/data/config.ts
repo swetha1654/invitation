@@ -29,3 +29,28 @@ export const HERO = {
 export const FOOTER = {
   blessing: "We can't wait to celebrate with you",
 };
+
+export interface Venue {
+  icon: string;
+  name: string;
+  mapsUrl: string;
+  parking: string;
+  transit?: string;
+}
+
+export const LOCATIONS: Venue[] = [
+  {
+    icon: "🌻",
+    name: "Farmhouse Collective",
+    mapsUrl: "https://share.google/yf9TnZcKDTKbEAQ32",
+    parking: "Car parking available",
+  },
+  {
+    icon: "🕉️",
+    name: "Sindhoor Convention Hall, JP Nagar",
+    mapsUrl: "https://share.google/VjLKMH9mnvMY8aZ3o",
+    parking: "Valet parking available",
+    transit:
+      "6 minute walk from Jaya Prakash Nagar metro station (J.P. Nagar metro)",
+  },
+];
