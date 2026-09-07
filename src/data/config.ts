@@ -42,13 +42,13 @@ export const LOCATIONS: Venue[] = [
   {
     icon: "🌻",
     name: "Farmhouse Collective",
-    mapsUrl: "https://share.google/yf9TnZcKDTKbEAQ32",
+    mapsUrl: "https://maps.app.goo.gl/f2Mi1Z8zpZ9WBXFC7?g_st=ic",
     parking: "Car parking available",
   },
   {
     icon: "🕉️",
     name: "Sindhoor Convention Hall, JP Nagar",
-    mapsUrl: "https://share.google/VjLKMH9mnvMY8aZ3o",
+    mapsUrl: "https://maps.app.goo.gl/qe7bHGDuDVBc78yL8?g_st=ic",
     parking: "Valet parking available",
     transit:
       "6 minute walk from Jaya Prakash Nagar metro station (J.P. Nagar metro)",
