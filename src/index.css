@@ -1239,11 +1239,12 @@ body.lb-open {
 
 .event-name {
   font-family: "Marcellus", serif;
-  /* Keep the title on one line and scale it with the viewport so a long
-     single word ("Muhurtham") fits inside the narrow box on phones instead
-     of overflowing onto the card beside it. 5.9vw ≈ 21px at 360px width.
+  /* Shrink the title on narrow screens so the longest single word
+     ("Muhurtham" ~126px at 1.35rem) fits inside the event box with
+     breathing room, instead of touching the edge. min() keeps the full
+     1.35rem on desktop; 4.6vw ≈ 16.5px at 360px and leaves a margin.
      Never break a word mid-way. */
-  font-size: min(1.35rem, 5.9vw);
+  font-size: min(1.35rem, 4.6vw);
   color: var(--maroon);
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -1576,7 +1577,8 @@ body.lb-open {
     padding: 0.85rem 0.9rem;
   }
   .event-name {
-    font-size: 1.1rem;
+    /* keep the shrink-to-fit clamp winning over the base rule */
+    font-size: min(1.1rem, 4.6vw);
   }
   .event-when,
   .event-where {
