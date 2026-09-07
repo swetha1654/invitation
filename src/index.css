@@ -1239,9 +1239,14 @@ body.lb-open {
 
 .event-name {
   font-family: "Marcellus", serif;
-  font-size: 1.35rem;
+  /* Keep the title on one line and scale it with the viewport so a long
+     single word ("Muhurtham") fits inside the narrow box on phones instead
+     of overflowing onto the card beside it. 5.9vw ≈ 21px at 360px width.
+     Never break a word mid-way. */
+  font-size: min(1.35rem, 5.9vw);
   color: var(--maroon);
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .event-when {
