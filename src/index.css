@@ -1239,9 +1239,14 @@ body.lb-open {
 
 .event-name {
   font-family: "Marcellus", serif;
-  font-size: 1.35rem;
+  /* Keep the title on one line and scale it with the viewport so a long
+     single word ("Muhurtham") fits inside the narrow box on phones instead
+     of overflowing onto the card beside it. 5.9vw ≈ 21px at 360px width.
+     Never break a word mid-way. */
+  font-size: min(1.35rem, 5.9vw);
   color: var(--maroon);
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .event-when {
@@ -1599,10 +1604,6 @@ body.lb-open {
   }
   .event-card {
     gap: 0.8rem;
-    /* dot | text+thumb wrapped: thumb drops below the text so the text box
-       gets the full remaining width on narrow phones (fixes Muhurtham title
-       touching the box edge) */
-    flex-wrap: wrap;
   }
   .event-dot {
     flex-basis: 44px;
@@ -1610,23 +1611,8 @@ body.lb-open {
     height: 44px;
     font-size: 1.1rem;
   }
-  .event-body {
-    /* fill the row next to the dot */
-    flex-basis: 0;
-    min-width: 0;
-  }
   .event-thumb {
-    /* drop onto its own row, aligned with the text box above it */
-    flex-basis: auto;
-    /* width of the text column = 100% - dot - gap; shift it right by dot+gap */
-    width: calc(100% - 44px - 0.8rem);
-    margin-left: calc(44px + 0.8rem);
-    flex-direction: row;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .event-thumb .thumb-art {
-    flex: 0 0 84px;
+    flex-basis: 96px;
   }
   .cd-sep {
     display: none;
