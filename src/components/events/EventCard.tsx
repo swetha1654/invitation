@@ -47,10 +47,10 @@ export default function EventCard({
   const badgeText = revealed
     ? "❤ Revealed"
     : theme.taps
-      ? "Tap me 🥁"
+      ? "Click me 🥁"
       : theme.curtain
-        ? "Tap me 🎭"
-        : "Scratch me ✨";
+        ? "Click me 🎭"
+        : "Click me ✨";
 
   return (
     <div ref={card.ref} className={`event-card ${card.cls}`}>
@@ -67,7 +67,10 @@ export default function EventCard({
           type="button"
           onClick={onLearnMore}
         >
-          A little about this →
+          A little about this
+          <span className="learn-more-arrow" aria-hidden="true">
+            ↓
+          </span>
         </button>
       </div>
 

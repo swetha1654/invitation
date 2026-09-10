@@ -769,6 +769,7 @@ body.revealed #invitation {
 
 /* ============ Event thumbnail cards ============ */
 .event-thumb {
+  position: relative;
   flex: 0 0 116px;
   display: flex;
   flex-direction: column;
@@ -788,6 +789,29 @@ body.revealed #invitation {
 .event-thumb:hover {
   transform: translateY(-3px) rotate(-1deg);
   box-shadow: var(--shadow);
+}
+
+/* Expanding ripple ring around unscratched cards — nudges the eye to click */
+.event-thumb:not(.revealed)::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 14px;
+  z-index: -1;
+  pointer-events: none;
+  animation: thumb-ring 2.4s ease-out infinite;
+}
+
+@keyframes thumb-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(201, 162, 39, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0);
+  }
 }
 
 .thumb-art {
@@ -826,14 +850,26 @@ body.revealed #invitation {
 
 .thumb-badge {
   font-family: "Marcellus", serif;
-  font-size: 0.62rem;
+  font-size: 0.66rem;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-align: center;
   color: var(--gold-light);
   background: linear-gradient(160deg, var(--maroon-soft), var(--maroon-deep));
+  border: 1px solid rgba(201, 162, 39, 0.6);
   border-radius: 999px;
-  padding: 0.24rem 0.3rem;
-  animation: pulse 2s ease-in-out infinite;
+  padding: 0.26rem 0.35rem;
+  animation: badge-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
 }
 
 .event-thumb.revealed {
@@ -844,6 +880,7 @@ body.revealed #invitation {
 
 .event-thumb.revealed .thumb-badge {
   animation: none;
+  transform: none;
   background: linear-gradient(160deg, #2e8b57, #1e6b40);
 }
 
@@ -1269,24 +1306,65 @@ body.lb-open {
 .event-learn-more {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.6rem;
-  background: none;
-  border: none;
-  border-bottom: 1px dashed var(--gold);
-  color: var(--maroon-soft);
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+  background: linear-gradient(
+    160deg,
+    rgba(201, 162, 39, 0.18),
+    rgba(201, 162, 39, 0.05)
+  );
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--maroon);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-style: italic;
-  font-weight: 600;
-  font-size: 0.98rem;
-  padding: 0.1rem 0;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 0.32rem 0.95rem;
   cursor: pointer;
-  transition: color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.25);
+  animation: learn-more-glow 2.4s ease-in-out infinite;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .event-learn-more:hover,
 .event-learn-more:focus-visible {
-  color: var(--maroon);
+  transform: translateY(-2px) scale(1.04);
+  background: linear-gradient(
+    160deg,
+    rgba(201, 162, 39, 0.3),
+    rgba(201, 162, 39, 0.1)
+  );
+  box-shadow: 0 4px 16px rgba(201, 162, 39, 0.45);
+  animation-play-state: paused;
+}
+
+.learn-more-arrow {
+  display: inline-block;
+  animation: learn-more-bounce 1.3s ease-in-out infinite;
+}
+
+@keyframes learn-more-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes learn-more-glow {
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(201, 162, 39, 0.25);
+  }
+  50% {
+    box-shadow: 0 2px 18px rgba(201, 162, 39, 0.55);
+  }
 }
 
 /* ============ Ritual info modal ============ */
