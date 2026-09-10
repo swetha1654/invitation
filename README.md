@@ -1,14 +1,6 @@
 # 💍 Swetha & Akshith — Wedding Invitation
 
-A digital wedding invitation built with React, TypeScript, and Vite, deployed on GitHub Pages.
-
-## 🔗 Live Invitation
-
-**[swetha1654.github.io/invitation](https://swetha1654.github.io/invitation/)**
-
-Share this link with your guests to view the invitation.
-
----
+A digital wedding invitation built with React, TypeScript, and Vite.
 
 ## ✨ Features
 
@@ -28,7 +20,32 @@ Share this link with your guests to view the invitation.
 | 🕉️ Muhurtham | Sun, 6 Dec 2026 · Oonjal Muhurtham 6:30 AM, Muhurtham 8:44 AM | Sindhoor Convention Hall, JP Nagar |
 | ✨ Reception | Sun, 6 Dec 2026 · 6 PM                                        | Sindhoor Convention Hall, JP Nagar |
 
----
+## 🧱 Tech Stack
+
+- React 19 + TypeScript
+- Vite for dev server and production builds
+- Plain CSS (no UI framework)
+- ESLint for linting
+
+## 📁 Project Structure
+
+```
+src/
+  App.tsx              — top-level app state (gate, reveal, lightbox, modal)
+  data/                — config, event list, and guest tier definitions
+  components/
+    hero/              — landing hero section
+    events/            — event timeline, cards, and info modal
+    lightbox/           — scratch/tap/curtain card reveal animations
+    gate/              — entry gate overlay
+  hooks/               — shared React hooks (e.g. scroll reveal)
+  utils/               — audio, canvas painting, and petal animation helpers
+  assets/cards/        — invitation card images
+```
+
+## 🎟️ Guest Tiers
+
+Each guest group is given a unique hash token that decides which events they see (e.g. all events, no Haldi, core events only, or just Muhurtham + Reception). Tiers and their tokens are defined in `src/data/events.ts`.
 
 ## 🛠 Local Development
 
@@ -36,8 +53,6 @@ Share this link with your guests to view the invitation.
 npm install
 npm run dev
 ```
-
-Open [http://localhost:5173/invitation/](http://localhost:5173/invitation/) in your browser.
 
 ## 🚀 Deployment
 
@@ -47,75 +62,5 @@ Pushes to `main` automatically deploy to GitHub Pages via the workflow in `.gith
 
 All names, dates, and venue details are in one place:
 
-- **`src/data/config.ts`** — couple names, parents, wedding date, venue, hero text
-- **`src/data/events.ts`** — event list, card messages, scratch card themes
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+- `src/data/config.ts` — couple names, parents, wedding date, venue, hero text
+- `src/data/events.ts` — event list, card messages, scratch card themes, guest tiers
