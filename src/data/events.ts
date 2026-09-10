@@ -90,6 +90,10 @@ export const EVENT_INFO_SECTIONS: Record<string, EventInfoSection[]> = {
       body: "A playful little ritual where the groom sets off on a symbolic journey, only to be brought back and reminded that there's a wedding waiting for him. It's a light-hearted moment in the middle of all the wedding traditions, with the families joining in on the fun.",
     },
     {
+      title: "Maalai Maatral",
+      body: "A playful exchange of garlands between the bride and groom, with both sides of the family joining in on the fun. The garlands are exchanged a few times, often with family members lifting us up and making us work for it. A simple, joyful moment that brings everyone together before the wedding ceremony begins.",
+    },
+    {
       title: "Oonjal",
       body: "The bride and groom come together on the swing, surrounded by music, flowers, and blessings from their families. It's a beautiful and relaxed part of the wedding, filled with traditional songs, laughter, and a few playful moments shared with the family.",
     },
