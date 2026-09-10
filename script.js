@@ -38,7 +38,7 @@ const ALL_EVENTS = [
     id: "muhurtham",
     icon: "🕉️",
     name: "Muhurtham",
-    when: "Oonjal Muhurtham · 6:30 AM\nMuhurtham · 8:44 AM",
+    when: "Oonjal Ceremony · 6:30 AM\nMuhurtham · 8:44 AM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
