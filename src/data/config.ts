@@ -2,11 +2,11 @@
 
 export const COUPLE = {
   bride: {
-    name: "Swetha",
+    name: "Swetha S",
     parents: "Daughter of Sri. K. Swaminathan & Smt. Sujatha S",
   },
   groom: {
-    name: "Akshith",
+    name: "Akshith G",
     parents: "Son of Sri. S. Gunasheelan & Smt. Shanthalakshmi",
   },
 };
