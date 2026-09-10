@@ -45,7 +45,7 @@ export const ALL_EVENTS: WeddingEvent[] = [
     id: "muhurtham",
     icon: "🕉️",
     name: "Muhurtham",
-    when: "Sunday, 6 Dec 2026\nOonjal Muhurtham · 6:30 AM\nMuhurtham · 8:44 AM",
+    when: "Sunday, 6 Dec 2026\nOonjal Ceremony · 6:30 AM\nMuhurtham · 8:44 AM",
     where: "Sindhoor Convention Hall, JP Nagar",
   },
   {
