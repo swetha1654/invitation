@@ -91,7 +91,7 @@ export const EVENT_INFO_SECTIONS: Record<string, EventInfoSection[]> = {
     },
     {
       title: "Maalai Maatral",
-      body: "A playful exchange of garlands between the bride and groom, with both sides of the family joining in on the fun. The garlands are exchanged a few times, often with family members lifting us up and making us work for it. A simple, joyful moment that brings everyone together before the wedding ceremony begins.",
+      body: "A playful exchange of garlands between the bride and groom, with both sides of the family cheering them on. The garlands are exchanged a few times, often with family members lifting us up and making us work for it. A simple, joyful moment that brings everyone together before the wedding ceremony begins.",
     },
     {
       title: "Oonjal",
