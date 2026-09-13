@@ -68,7 +68,7 @@ export default function App() {
             onInfoOpen={setInfoEvent}
             revealedCards={revealedCards}
           />
-          <Location />
+          <Location events={events} />
           <Countdown />
           <Footer />
         </main>

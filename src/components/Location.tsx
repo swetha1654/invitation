@@ -1,10 +1,21 @@
 import { LOCATIONS } from "../data/config";
+import type { WeddingEvent } from "../data/events";
 import { useReveal } from "../hooks/useReveal";
 
-export default function Location() {
+interface Props {
+  events: WeddingEvent[];
+}
+
+export default function Location({ events }: Props) {
   const title = useReveal();
   const sub = useReveal();
   const cards = useReveal();
+
+  // Only show venues that host at least one of the events this guest sees
+  const eventIds = new Set(events.map((e) => e.id));
+  const venues = LOCATIONS.filter((v) =>
+    v.eventIds.some((id) => eventIds.has(id)),
+  );
 
   return (
     <section id="location" className="section location-section">
@@ -16,7 +27,7 @@ export default function Location() {
       </p>
 
       <div ref={cards.ref} className={`location-grid ${cards.cls}`}>
-        {LOCATIONS.map((venue) => (
+        {venues.map((venue) => (
           <div className="location-card" key={venue.name}>
             <div className="location-icon" aria-hidden="true">
               {venue.icon}

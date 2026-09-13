@@ -36,6 +36,8 @@ export interface Venue {
   mapsUrl: string;
   parking: string;
   transit?: string;
+  /** Event ids held at this venue — venue only shows if one of these is in the guest's event list */
+  eventIds: string[];
 }
 
 export const LOCATIONS: Venue[] = [
@@ -44,6 +46,7 @@ export const LOCATIONS: Venue[] = [
     name: "Farmhouse Collective",
     mapsUrl: "https://maps.app.goo.gl/f2Mi1Z8zpZ9WBXFC7?g_st=ic",
     parking: "Car parking available",
+    eventIds: ["haldi"],
   },
   {
     icon: "🕉️",
@@ -52,5 +55,6 @@ export const LOCATIONS: Venue[] = [
     parking: "Valet parking available",
     transit:
       "6 minute walk from Jaya Prakash Nagar metro station (J.P. Nagar metro)",
+    eventIds: ["varapooje", "sangeeth", "muhurtham", "reception"],
   },
 ];
