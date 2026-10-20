@@ -3,6 +3,7 @@ import type { WeddingEvent } from "./data/events";
 import { GUEST_TOKENS, getEventsForTier } from "./data/events";
 import FallingLeaves from "./components/FallingLeaves";
 import GateOverlay from "./components/gate/GateOverlay";
+import ScrollHint from "./components/ScrollHint";
 import Hero from "./components/hero/Hero";
 import EventTimeline from "./components/events/EventTimeline";
 import InfoModal from "./components/events/InfoModal";
@@ -73,6 +74,8 @@ export default function App() {
           <Footer />
         </main>
       )}
+
+      {revealed && <ScrollHint />}
 
       <Lightbox
         event={lightboxEvent}
