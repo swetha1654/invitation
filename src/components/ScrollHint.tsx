@@ -41,9 +41,7 @@ export default function ScrollHint() {
       <span className="scroll-hint-arrow" aria-hidden="true">
         ↓
       </span>
-      <span className="scroll-hint-text">
-        Scroll down for events, timings &amp; location
-      </span>
+      <span className="scroll-hint-text">Scroll down</span>
     </button>
   );
 }
