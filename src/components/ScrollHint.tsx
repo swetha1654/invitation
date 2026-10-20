@@ -9,7 +9,7 @@ export default function ScrollHint() {
   const [atEnd, setAtEnd] = useState(false);
 
   useEffect(() => {
-    const showTimer = setTimeout(() => setVisible(true), 2200);
+    const showTimer = setTimeout(() => setVisible(true), 1500);
     return () => clearTimeout(showTimer);
   }, []);
 
