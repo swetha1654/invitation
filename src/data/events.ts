@@ -118,7 +118,12 @@ export const CARD_MESSAGES: Record<string, string> = {
 
 // ─── Guest tiers ─────────────────────────────────────────────────────────────
 
-export type GuestTier = "all" | "no-haldi" | "core" | "muhurtham-reception";
+export type GuestTier =
+  | "all"
+  | "no-haldi"
+  | "core"
+  | "muhurtham-reception"
+  | "no-varapooje";
 
 /**
  * Share the matching URL hash with each guest group:
@@ -126,12 +131,14 @@ export type GuestTier = "all" | "no-haldi" | "core" | "muhurtham-reception";
  *   No Haldi          →  …/invitation/#qn7pt
  *   Core only         →  …/invitation/#rz4bw  (no Haldi, no Varapooje)
  *   Muhurtham + Reception only →  …/invitation/#wt5jc
+ *   No Varapooje      →  …/invitation/#hb3nx  (Haldi, Sangeeth, Muhurtham, Reception)
  */
 export const GUEST_TOKENS: Record<string, GuestTier> = {
   xk9mv: "all",
   qn7pt: "no-haldi",
   rz4bw: "core",
   wt5jc: "muhurtham-reception",
+  hb3nx: "no-varapooje",
 };
 
 export function getEventsForTier(tier: GuestTier): WeddingEvent[] {
@@ -142,6 +149,8 @@ export function getEventsForTier(tier: GuestTier): WeddingEvent[] {
     return ALL_EVENTS.filter(
       (e) => e.id === "muhurtham" || e.id === "reception",
     );
+  if (tier === "no-varapooje")
+    return ALL_EVENTS.filter((e) => e.id !== "varapooje");
   return ALL_EVENTS;
 }
 
