@@ -1658,6 +1658,13 @@ body.lb-open .scroll-hint {
   color: var(--ink);
 }
 
+.location-note {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--maroon-soft);
+  margin-top: 0.3rem;
+}
+
 /* ============ Footer ============ */
 /* Same warm gold tint as the location band */
 .footer {

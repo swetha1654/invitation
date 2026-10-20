@@ -45,6 +45,7 @@ export default function Location({ events }: Props) {
             {venue.transit && (
               <p className="location-detail">🚇 {venue.transit}</p>
             )}
+            {venue.note && <p className="location-note">({venue.note})</p>}
           </div>
         ))}
       </div>

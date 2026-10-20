@@ -36,6 +36,8 @@ export interface Venue {
   mapsUrl: string;
   parking: string;
   transit?: string;
+  /** Optional clarifying note shown under the venue details */
+  note?: string;
   /** Event ids held at this venue — venue only shows if one of these is in the guest's event list */
   eventIds: string[];
 }
@@ -46,6 +48,7 @@ export const LOCATIONS: Venue[] = [
     name: "Farmhouse Collective",
     mapsUrl: "https://maps.app.goo.gl/f2Mi1Z8zpZ9WBXFC7?g_st=ic",
     parking: "Car parking available",
+    note: "This location is only for the Haldi event",
     eventIds: ["haldi"],
   },
   {
