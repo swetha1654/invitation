@@ -14,6 +14,8 @@ export const COUPLE = {
 export const WEDDING = {
   /** Displayed in the hero section */
   dateLabel: "5th & 6th December 2026",
+  /** Shown instead when the guest is only invited to wedding-day events */
+  weddingDayLabel: "6th December 2026",
   venue: "Sindhoor Convention Hall, JP Nagar, Bengaluru",
   /** ISO 8601 with IST (+05:30) — drives the countdown timer */
   muhurthamISO: "2026-12-06T00:00:00+05:30",
