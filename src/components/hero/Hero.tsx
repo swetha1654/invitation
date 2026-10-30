@@ -3,7 +3,7 @@ import { useReveal } from "../../hooks/useReveal";
 
 const THORANAM_COUNT = 15;
 
-export default function Hero() {
+export default function Hero({ dateLabel }: { dateLabel: string }) {
   const eyebrow = useReveal();
   const tagline = useReveal();
   const couple = useReveal();
@@ -61,7 +61,7 @@ export default function Hero() {
             />
           </svg>
         </div>
-        <p className="date-big">{WEDDING.dateLabel}</p>
+        <p className="date-big">{dateLabel}</p>
         <p className="venue-line">{WEDDING.venue}</p>
       </div>
 
