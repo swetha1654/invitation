@@ -14,6 +14,8 @@ export const COUPLE = {
 export const WEDDING = {
   /** Displayed in the hero section */
   dateLabel: "5th & 6th December 2026",
+  /** Shown instead when the guest is only invited to wedding-day events */
+  weddingDayLabel: "6th December 2026",
   venue: "Sindhoor Convention Hall, JP Nagar, Bengaluru",
   /** ISO 8601 with IST (+05:30) — drives the countdown timer */
   muhurthamISO: "2026-12-06T00:00:00+05:30",
@@ -36,6 +38,8 @@ export interface Venue {
   mapsUrl: string;
   parking: string;
   transit?: string;
+  /** Optional clarifying note shown under the venue details */
+  note?: string;
   /** Event ids held at this venue — venue only shows if one of these is in the guest's event list */
   eventIds: string[];
 }
@@ -46,6 +50,7 @@ export const LOCATIONS: Venue[] = [
     name: "Farmhouse Collective",
     mapsUrl: "https://maps.app.goo.gl/f2Mi1Z8zpZ9WBXFC7?g_st=ic",
     parking: "Car parking available",
+    note: "This location is only for the Haldi event",
     eventIds: ["haldi"],
   },
   {

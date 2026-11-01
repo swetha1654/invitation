@@ -3,6 +3,7 @@ import type { WeddingEvent } from "./data/events";
 import { GUEST_TOKENS, getEventsForTier } from "./data/events";
 import FallingLeaves from "./components/FallingLeaves";
 import GateOverlay from "./components/gate/GateOverlay";
+import ScrollHint from "./components/ScrollHint";
 import Hero from "./components/hero/Hero";
 import EventTimeline from "./components/events/EventTimeline";
 import InfoModal from "./components/events/InfoModal";
@@ -11,6 +12,9 @@ import Location from "./components/Location";
 import Footer from "./components/Footer";
 import Lightbox from "./components/lightbox/Lightbox";
 import NotInvited from "./components/NotInvited";
+import { WEDDING } from "./data/config";
+
+const WEDDING_DAY_EVENT_IDS = new Set(["muhurtham", "reception"]);
 
 export default function App() {
   const events = useMemo(() => {
@@ -48,6 +52,10 @@ export default function App() {
   // All hooks must run before this — early return happens after
   if (!events) return <NotInvited />;
 
+  const dateLabel = events.every((e) => WEDDING_DAY_EVENT_IDS.has(e.id))
+    ? WEDDING.weddingDayLabel
+    : WEDDING.dateLabel;
+
   return (
     <>
       <FallingLeaves active={revealed} />
@@ -61,7 +69,7 @@ export default function App() {
 
       {revealed && (
         <main id="invitation">
-          <Hero />
+          <Hero dateLabel={dateLabel} />
           <EventTimeline
             events={events}
             onCardOpen={setLightboxEvent}
@@ -73,6 +81,8 @@ export default function App() {
           <Footer />
         </main>
       )}
+
+      {revealed && <ScrollHint />}
 
       <Lightbox
         event={lightboxEvent}
