@@ -24,7 +24,7 @@ export const ALL_EVENTS: WeddingEvent[] = [
     id: "haldi",
     icon: "🌻",
     name: "Haldi",
-    when: "Sunday, 29 Nov 2026\n11 AM – 3 PM",
+    when: "Sunday, 29 Nov 2026\n10:30 AM – 3 PM",
     where: "The backyard, Farmhouse Collective",
   },
   {
