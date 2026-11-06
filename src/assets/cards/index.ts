@@ -1,4 +1,4 @@
-import haldi from "./card_haldi.jpg";
+import haldi from "./card_haldi.png";
 import varapooje from "./card_varapooje.png";
 import sangeeth from "./card_sangeeth.png";
 import muhurtham from "./card_muhurtham.png";

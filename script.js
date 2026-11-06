@@ -17,7 +17,7 @@ const ALL_EVENTS = [
     id: "haldi",
     icon: "🌻",
     name: "Haldi",
-    when: "Sunday, 29 Nov 2026 · 11 AM – 3 PM",
+    when: "Sunday, 29 Nov 2026 · 10:30 AM – 3 PM",
     where: "The backyard, Farmhouse Collective",
   },
   {
@@ -241,7 +241,7 @@ const EVENT_INFO_SECTIONS = {
    (the image already carries the title & details, so the text block
    is hidden for these) */
 const CARD_IMAGES = {
-  haldi: "card_haldi.jpg",
+  haldi: "card_haldi.png",
   varapooje: "card_varapooje.png",
   sangeeth: "card_sangeeth.png",
   muhurtham: " card_muhurtham.png",
