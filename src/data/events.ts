@@ -123,6 +123,7 @@ export type GuestTier =
   | "no-haldi"
   | "core"
   | "muhurtham-reception"
+  | "sangeeth-muhurtham-reception"
   | "no-varapooje";
 
 /**
@@ -131,6 +132,7 @@ export type GuestTier =
  *   No Haldi          →  …/invitation/#qn7pt
  *   Core only         →  …/invitation/#rz4bw  (no Haldi, no Varapooje)
  *   Muhurtham + Reception only →  …/invitation/#wt5jc
+ *   Sangeeth + Muhurtham + Reception only →  …/invitation/#smr26
  *   No Varapooje      →  …/invitation/#hb3nx  (Haldi, Sangeeth, Muhurtham, Reception)
  */
 export const GUEST_TOKENS: Record<string, GuestTier> = {
@@ -138,6 +140,7 @@ export const GUEST_TOKENS: Record<string, GuestTier> = {
   qn7pt: "no-haldi",
   rz4bw: "core",
   wt5jc: "muhurtham-reception",
+  smr26: "sangeeth-muhurtham-reception",
   hb3nx: "no-varapooje",
 };
 
@@ -148,6 +151,13 @@ export function getEventsForTier(tier: GuestTier): WeddingEvent[] {
   if (tier === "muhurtham-reception")
     return ALL_EVENTS.filter(
       (e) => e.id === "muhurtham" || e.id === "reception",
+    );
+  if (tier === "sangeeth-muhurtham-reception")
+    return ALL_EVENTS.filter(
+      (e) =>
+        e.id === "sangeeth" ||
+        e.id === "muhurtham" ||
+        e.id === "reception",
     );
   if (tier === "no-varapooje")
     return ALL_EVENTS.filter((e) => e.id !== "varapooje");
