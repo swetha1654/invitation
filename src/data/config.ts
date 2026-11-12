@@ -36,7 +36,7 @@ export interface Venue {
   icon: string;
   name: string;
   mapsUrl: string;
-  parking: string;
+  parking?: string;
   transit?: string;
   /** Optional clarifying note shown under the venue details */
   note?: string;
@@ -52,6 +52,13 @@ export const LOCATIONS: Venue[] = [
     parking: "Car parking available",
     note: "This location is only for the Haldi event",
     eventIds: ["haldi"],
+  },
+  {
+    icon: "🪔",
+    name: "313, SMR Vinay Harmony, Banaswadi Main Road",
+    mapsUrl: "https://maps.app.goo.gl/3ARZkFiycdASBKD6A",
+    note: "This location is only for Devarasamaradhane and Mehendi",
+    eventIds: ["devarasamaradhane", "mehendi"],
   },
   {
     icon: "🕉️",
