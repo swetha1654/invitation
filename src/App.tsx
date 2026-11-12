@@ -56,14 +56,19 @@ export default function App() {
   const includesDecember3Events = events.some((e) =>
     DECEMBER_3_EVENT_IDS.has(e.id),
   );
+  const includesHaldi = events.some((e) => e.id === "haldi");
   const dateLabel = includesDecember3Events
     ? "29th November, 3rd, 5th & 6th December 2026"
-    : events.every((e) => WEDDING_DAY_EVENT_IDS.has(e.id))
-      ? WEDDING.weddingDayLabel
-      : WEDDING.dateLabel;
+    : includesHaldi
+      ? "29th November, 5th & 6th December 2026"
+      : events.every((e) => WEDDING_DAY_EVENT_IDS.has(e.id))
+        ? WEDDING.weddingDayLabel
+        : WEDDING.dateLabel;
   const venueLabel = includesDecember3Events
     ? "Multiple venues"
-    : WEDDING.venue;
+    : includesHaldi
+      ? "Farmhouse Collective & Sindhoor Convention Hall, JP Nagar, Bengaluru"
+      : WEDDING.venue;
 
   return (
     <>
