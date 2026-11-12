@@ -19,12 +19,12 @@ export interface ScratchTheme {
   curtain?: boolean;
 }
 
-export const ALL_EVENTS: WeddingEvent[] = [
+const EXISTING_EVENTS: WeddingEvent[] = [
   {
     id: "haldi",
     icon: "🌻",
     name: "Haldi",
-    when: "Sunday, 29 Nov 2026\n10:30 AM – 3 PM",
+    when: "Sunday, 29 Nov 2026\n10 AM – 3 PM",
     where: "The backyard, Farmhouse Collective",
   },
   {
@@ -57,6 +57,29 @@ export const ALL_EVENTS: WeddingEvent[] = [
   },
 ];
 
+const DECEMBER_3_EVENTS: WeddingEvent[] = [
+  {
+    id: "devarasamaradhane",
+    icon: "🪔",
+    name: "Devarasamaradhane",
+    when: "Thursday, 3 Dec 2026\n9:30 AM",
+    where: "313, SMR Vinay Harmony, Banaswadi Main Road",
+  },
+  {
+    id: "mehendi",
+    icon: "🌿",
+    name: "Mehendi",
+    when: "Thursday, 3 Dec 2026\n3 PM",
+    where: "313, SMR Vinay Harmony, Banaswadi Main Road",
+  },
+];
+
+export const ALL_EVENTS: WeddingEvent[] = [
+  ...EXISTING_EVENTS.slice(0, 1),
+  ...DECEMBER_3_EVENTS,
+  ...EXISTING_EVENTS.slice(1),
+];
+
 export interface EventInfoSection {
   title: string;
   body: string;
@@ -67,6 +90,14 @@ export const EVENT_INFO: Record<string, string[]> = {
   haldi: [
     "A little turmeric, lots of laughter, and blessings from our families. Haldi is a simple and joyful way to begin the wedding celebrations, with loved ones coming together to apply turmeric and share their blessings with us.",
     "It's one of those traditions that brings everyone together before the big day, with plenty of laughter, photos, and a little bit of turmeric everywhere.",
+  ],
+  devarasamaradhane: [
+    "A devotional gathering with our families to seek blessings as the wedding celebrations begin.",
+    "We look forward to sharing this meaningful morning with you.",
+  ],
+  mehendi: [
+    "An afternoon of celebration as we gather with family and friends for Mehendi.",
+    "Join us for a joyful time together as the wedding festivities continue.",
   ],
   varapooje: [
     "A special welcome to the groom and his family as our two families come together. Varapooje is a traditional ceremony where the bride's family welcomes the groom and celebrates his arrival.",
@@ -110,6 +141,8 @@ export const EVENT_INFO_SECTIONS: Record<string, EventInfoSection[]> = {
 
 export const CARD_MESSAGES: Record<string, string> = {
   haldi: "Join us to celebrate our Haldi ceremony!",
+  devarasamaradhane: "Join us for Devarasamaradhane",
+  mehendi: "Join us to celebrate our Mehendi!",
   varapooje: "Bless us at our Varapooje",
   sangeeth: "Dance the night away at our Sangeeth",
   muhurtham: "Witness us tie the knot at our Muhurtham",
@@ -124,7 +157,8 @@ export type GuestTier =
   | "core"
   | "muhurtham-reception"
   | "sangeeth-muhurtham-reception"
-  | "no-varapooje";
+  | "no-varapooje"
+  | "dec-3";
 
 /**
  * Share the matching URL hash with each guest group:
@@ -134,6 +168,7 @@ export type GuestTier =
  *   Muhurtham + Reception only →  …/invitation/#wt5jc
  *   Sangeeth + Muhurtham + Reception only →  …/invitation/#smr26
  *   No Varapooje      →  …/invitation/#hb3nx  (Haldi, Sangeeth, Muhurtham, Reception)
+ *   All events, including Dec 3 →  …/invitation/#dec3
  */
 export const GUEST_TOKENS: Record<string, GuestTier> = {
   xk9mv: "all",
@@ -142,26 +177,31 @@ export const GUEST_TOKENS: Record<string, GuestTier> = {
   wt5jc: "muhurtham-reception",
   smr26: "sangeeth-muhurtham-reception",
   hb3nx: "no-varapooje",
+  dec3: "dec-3",
 };
 
 export function getEventsForTier(tier: GuestTier): WeddingEvent[] {
-  if (tier === "no-haldi") return ALL_EVENTS.filter((e) => e.id !== "haldi");
+  if (tier === "dec-3") return ALL_EVENTS;
+  if (tier === "no-haldi")
+    return EXISTING_EVENTS.filter((e) => e.id !== "haldi");
   if (tier === "core")
-    return ALL_EVENTS.filter((e) => e.id !== "haldi" && e.id !== "varapooje");
+    return EXISTING_EVENTS.filter(
+      (e) => e.id !== "haldi" && e.id !== "varapooje",
+    );
   if (tier === "muhurtham-reception")
-    return ALL_EVENTS.filter(
+    return EXISTING_EVENTS.filter(
       (e) => e.id === "muhurtham" || e.id === "reception",
     );
   if (tier === "sangeeth-muhurtham-reception")
-    return ALL_EVENTS.filter(
+    return EXISTING_EVENTS.filter(
       (e) =>
         e.id === "sangeeth" ||
         e.id === "muhurtham" ||
         e.id === "reception",
     );
   if (tier === "no-varapooje")
-    return ALL_EVENTS.filter((e) => e.id !== "varapooje");
-  return ALL_EVENTS;
+    return EXISTING_EVENTS.filter((e) => e.id !== "varapooje");
+  return EXISTING_EVENTS;
 }
 
 /** Resolved Vite asset URLs — swap images in src/assets/cards/ */
@@ -172,6 +212,16 @@ export const SCRATCH_THEMES: Record<string, ScratchTheme> = {
     stops: ["#e7b53f", "#d99b22", "#c98415"],
     speck: [190, 130, 25],
     hint: "Rub off the turmeric",
+  },
+  devarasamaradhane: {
+    stops: ["#c88a38", "#b87328", "#99551f"],
+    speck: [160, 105, 35],
+    hint: "Rub to reveal",
+  },
+  mehendi: {
+    stops: ["#67854a", "#4e713d", "#345b33"],
+    speck: [75, 110, 50],
+    hint: "Rub to reveal",
   },
   varapooje: {
     flowers: true,

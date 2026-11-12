@@ -15,6 +15,7 @@ import NotInvited from "./components/NotInvited";
 import { WEDDING } from "./data/config";
 
 const WEDDING_DAY_EVENT_IDS = new Set(["muhurtham", "reception"]);
+const DECEMBER_3_EVENT_IDS = new Set(["devarasamaradhane", "mehendi"]);
 
 export default function App() {
   const events = useMemo(() => {
@@ -52,9 +53,17 @@ export default function App() {
   // All hooks must run before this — early return happens after
   if (!events) return <NotInvited />;
 
-  const dateLabel = events.every((e) => WEDDING_DAY_EVENT_IDS.has(e.id))
-    ? WEDDING.weddingDayLabel
-    : WEDDING.dateLabel;
+  const includesDecember3Events = events.some((e) =>
+    DECEMBER_3_EVENT_IDS.has(e.id),
+  );
+  const dateLabel = includesDecember3Events
+    ? "29th November, 3rd, 5th & 6th December 2026"
+    : events.every((e) => WEDDING_DAY_EVENT_IDS.has(e.id))
+      ? WEDDING.weddingDayLabel
+      : WEDDING.dateLabel;
+  const venueLabel = includesDecember3Events
+    ? "Multiple venues"
+    : WEDDING.venue;
 
   return (
     <>
@@ -69,7 +78,7 @@ export default function App() {
 
       {revealed && (
         <main id="invitation">
-          <Hero dateLabel={dateLabel} />
+          <Hero dateLabel={dateLabel} venueLabel={venueLabel} />
           <EventTimeline
             events={events}
             onCardOpen={setLightboxEvent}

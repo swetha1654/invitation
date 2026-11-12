@@ -14,7 +14,7 @@ A digital wedding invitation built with React, TypeScript, and Vite.
 
 | Event        | Date & Time                                                  | Venue                              |
 | ------------ | ------------------------------------------------------------ | ---------------------------------- |
-| 🌻 Haldi     | Sun, 29 Nov 2026 · 10:30 AM – 3 PM                           | The backyard, Farmhouse Collective |
+| 🌻 Haldi     | Sun, 29 Nov 2026 · 10 AM – 3 PM                              | The backyard, Farmhouse Collective |
 | 🪔 Varapooje | Sat, 5 Dec 2026 · 11 AM                                      | Sindhoor Convention Hall, JP Nagar |
 | 🎶 Sangeeth  | Sat, 5 Dec 2026 · 5 PM                                       | Sindhoor Convention Hall, JP Nagar |
 | 🕉️ Muhurtham | Sun, 6 Dec 2026 · Oonjal Ceremony 6:30 AM, Muhurtham 8:44 AM | Sindhoor Convention Hall, JP Nagar |

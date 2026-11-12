@@ -41,7 +41,9 @@ export default function Location({ events }: Props) {
             >
               📍 Open in Maps
             </a>
-            <p className="location-detail">🚗 {venue.parking}</p>
+            {venue.parking && (
+              <p className="location-detail">🚗 {venue.parking}</p>
+            )}
             {venue.transit && (
               <p className="location-detail">🚇 {venue.transit}</p>
             )}
